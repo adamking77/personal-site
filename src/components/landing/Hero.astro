@@ -83,68 +83,74 @@ const nowContent = processMarkdown(nowSection?.body);
     <Text
       tag="h1"
       variant="textLG"
-      class="font-medium"
+      class="font-medium animate-on-scroll"
       set:html={heroLines.join('<br />')}
     />
   </Wrapper>
   <Wrapper variant="standard" class="py-12">
-    <Text
-      tag="h1"
-      variant="textLG"
-      class="font-medium mb-4"
-    >
-      {aboutSection?.data.title}
-    </Text>
-    <div class="border-t dark:border-white/10 border-black/10 pt-2">
-      <div class="ml-0 md:ml-12 lg:ml-24">
-        {aboutContent.map((paragraph: string) => (
-          <Text
-            tag="p"
-            variant="textSM"
-            class="2xl:text-base mt-4"
-            set:html={paragraph}
-          />
-        ))}
+    <div class="animate-on-scroll">
+      <Text
+        tag="h1"
+        variant="textLG"
+        class="font-medium mb-4"
+      >
+        {aboutSection?.data.title}
+      </Text>
+      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+        <div class="ml-0 md:ml-12 lg:ml-24">
+          {aboutContent.map((paragraph: string) => (
+            <Text
+              tag="p"
+              variant="textSM"
+              class="2xl:text-base mt-4"
+              set:html={paragraph}
+            />
+          ))}
+        </div>
       </div>
     </div>
 
-    <Text
-      tag="h1"
-      variant="textLG"
-      class="font-medium mb-4 mt-36"
-    >
-      {workSection?.data.title}
-    </Text>
-    <div class="border-t dark:border-white/10 border-black/10 pt-2">
-      <div class="ml-0 md:ml-12 lg:ml-24">
-        {workContent.map((paragraph: string) => (
-          <Text
-            tag="p"
-            variant="textSM"
-            class="2xl:text-base mt-4"
-            set:html={paragraph}
-          />
-        ))}
+    <div class="animate-on-scroll delay-200 mt-36">
+      <Text
+        tag="h1"
+        variant="textLG"
+        class="font-medium mb-4"
+      >
+        {workSection?.data.title}
+      </Text>
+      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+        <div class="ml-0 md:ml-12 lg:ml-24">
+          {workContent.map((paragraph: string) => (
+            <Text
+              tag="p"
+              variant="textSM"
+              class="2xl:text-base mt-4"
+              set:html={paragraph}
+            />
+          ))}
+        </div>
       </div>
     </div>
 
-    <Text
-      tag="h1"
-      variant="textLG"
-      class="font-medium mb-4 mt-36"
-    >
-      {nowSection?.data.title}
-    </Text>
-    <div class="border-t dark:border-white/10 border-black/10 pt-2">
-      <div class="ml-0 md:ml-12 lg:ml-24">
-        {nowContent.map((paragraph: string) => (
-          <Text
-            tag="p"
-            variant="textSM"
-            class="2xl:text-base mt-4"
-            set:html={paragraph}
-          />
-        ))}
+    <div class="animate-on-scroll delay-400 mt-36">
+      <Text
+        tag="h1"
+        variant="textLG"
+        class="font-medium mb-4"
+      >
+        {nowSection?.data.title}
+      </Text>
+      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+        <div class="ml-0 md:ml-12 lg:ml-24">
+          {nowContent.map((paragraph: string) => (
+            <Text
+              tag="p"
+              variant="textSM"
+              class="2xl:text-base mt-4"
+              set:html={paragraph}
+            />
+          ))}
+        </div>
       </div>
     </div>
   </Wrapper>
