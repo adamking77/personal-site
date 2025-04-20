@@ -42,12 +42,51 @@ const lifestyleContent = processMarkdown(lifestyleSection?.body);
 const nowContent = processMarkdown(nowSection?.body);
 ---
 
+<script>
+  // Intersection Observer for fade-in animations
+  const observerOptions = {
+    root: null,
+    rootMargin: '0px',
+    threshold: 0.1
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        observer.unobserve(entry.target); // Stop observing once animated
+      }
+    });
+  }, observerOptions);
+
+  // Observe all sections with animation classes
+  document.querySelectorAll('.animate-on-scroll').forEach((element) => {
+    observer.observe(element);
+  });
+</script>
+
+<style>
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .delay-200 { transition-delay: 200ms; }
+  .delay-400 { transition-delay: 400ms; }
+</style>
+
 <section>
   <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
     <Text
       tag="h1"
       variant="textLG"
-      class="font-medium"
+      class="font-medium animate-on-scroll"
     >
       {heroLines.map((line, i) => (
         <>
@@ -58,83 +97,91 @@ const nowContent = processMarkdown(nowSection?.body);
     </Text>
   </Wrapper>
   <Wrapper variant="standard" class="py-12">
-    <Text
-      tag="h1"
-      variant="textLG"
-      class="font-medium mb-4"
-    >
-      {aboutSection?.data.title}
-    </Text>
-    <div class="border-t dark:border-white/10 border-black/10 pt-2">
-      <div class="ml-0 md:ml-12 lg:ml-24">
-        {aboutContent.map((paragraph: string, index: number) => (
-          <Text
-            tag="p"
-            variant="textSM"
-            class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
-            set:html={paragraph}
-          />
-        ))}
+    <div class="animate-on-scroll">
+      <Text
+        tag="h1"
+        variant="textLG"
+        class="font-medium mb-4"
+      >
+        {aboutSection?.data.title}
+      </Text>
+      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+        <div class="ml-0 md:ml-12 lg:ml-24">
+          {aboutContent.map((paragraph: string, index: number) => (
+            <Text
+              tag="p"
+              variant="textSM"
+              class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
+              set:html={paragraph}
+            />
+          ))}
+        </div>
       </div>
     </div>
 
-    <Text
-      tag="h1"
-      variant="textLG"
-      class="font-medium mb-4 mt-36"
-    >
-      {workSection?.data.title}
-    </Text>
-    <div class="border-t dark:border-white/10 border-black/10 pt-2">
-      <div class="ml-0 md:ml-12 lg:ml-24">
-        {workContent.map((paragraph: string, index: number) => (
-          <Text
-            tag="p"
-            variant="textSM"
-            class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
-            set:html={paragraph}
-          />
-        ))}
+    <div class="animate-on-scroll delay-200 mt-36">
+      <Text
+        tag="h1"
+        variant="textLG"
+        class="font-medium mb-4"
+      >
+        {workSection?.data.title}
+      </Text>
+      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+        <div class="ml-0 md:ml-12 lg:ml-24">
+          {workContent.map((paragraph: string, index: number) => (
+            <Text
+              tag="p"
+              variant="textSM"
+              class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
+              set:html={paragraph}
+            />
+          ))}
+        </div>
       </div>
     </div>
 
-    <Text
-      tag="h1"
-      variant="textLG"
-      class="font-medium mb-4 mt-36"
-    >
-      {lifestyleSection?.data.title}
-    </Text>
-    <div class="border-t dark:border-white/10 border-black/10 pt-2">
-      <div class="ml-0 md:ml-12 lg:ml-24">
-        {lifestyleContent.map((paragraph: string, index: number) => (
-          <Text
-            tag="p"
-            variant="textSM"
-            class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
-            set:html={paragraph}
-          />
-        ))}
+    <div class="animate-on-scroll delay-400 mt-36">
+      <Text
+        tag="h1"
+        variant="textLG"
+        class="font-medium mb-4"
+      >
+        {lifestyleSection?.data.title}
+      </Text>
+      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+        <div class="ml-0 md:ml-12 lg:ml-24">
+          {lifestyleContent.map((paragraph: string, index: number) => (
+            <Text
+              tag="p"
+              variant="textSM"
+              class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
+              set:html={paragraph}
+            />
+          ))}
+        </div>
       </div>
     </div>
 
-    <Text
-      tag="h1"
-      variant="textLG"
-      class="font-medium mb-4 mt-36"
-    >
-      {nowSection?.data.title}
-    </Text>
-    <div class="border-t dark:border-white/10 border-black/10 pt-2">
-      <div class="ml-0 md:ml-12 lg:ml-24">
-        {nowContent.map((paragraph: string, index: number) => (
-          <Text
-            tag="p"
-            variant="textSM"
-            class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
-            set:html={paragraph}
-          />
-        ))}
+    <div class="animate-on-scroll delay-400 mt-36">
+      <Text
+        tag="h1"
+        variant="textLG"
+        class="font-medium mb-4"
+      >
+        {nowSection?.data.title}
+      </Text>
+      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+        <div class="ml-0 md:ml-12 lg:ml-24">
+          {nowContent.map((paragraph: string, index: number) => (
+            <Text
+              tag="p"
+              variant="textSM"
+              class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
+              set:html={paragraph}
+            />
+          ))}
+        </div>
       </div>
     </div>
   </Wrapper>
