@@ -1,0 +1,64 @@
+---
+import { AstroSeo } from "@astrolib/seo";
+---
+
+<AstroSeo
+  title="Adam King"
+  description="Personal website and blog of Adam King"
+  canonical="https://adamking.com"
+  openGraph={{
+    url: "https://adamking.com",
+    title: "Adam King",
+    description: "Personal website and blog of Adam King",
+    images: [
+      {
+        url: "https://adamking.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Adam King",
+        type: "image/jpeg",
+      },
+    ],
+    site_name: "Adam King",
+    type: "website",
+    locale: "en_US",
+  }}
+  twitter={{
+    handle: "@adamking",
+    site: "@adamking",
+    cardType: "summary_large_image",
+  }}
+/>
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://adamking.com" />
+<meta property="og:title" content="Adam King" />
+<meta
+  property="og:description"
+  content="Personal website and blog of Adam King"
+/>
+<meta
+  property="og:image"
+  content="https://adamking.com/og-image.jpg"
+/>
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="https://adamking.com" />
+<meta property="twitter:title" content="Adam King" />
+<meta
+  property="twitter:description"
+  content="Personal website and blog of Adam King"
+/>
+<meta
+  property="twitter:image"
+  content="https://adamking.com/og-image.jpg"
+/>
+
+<!-- Canonical URL -->
+<link rel="canonical" href="https://adamking.com" />
+
+<!-- Additional SEO -->
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="index, follow" />

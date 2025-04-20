@@ -1,0 +1,19 @@
+---
+// Fundations
+import Text from "../fundations/elements/Text.astro";
+import Wrapper from "../fundations/containers/Wrapper.astro";
+// Assets
+import Logo from "./Logo.astro";
+import ThemeToggle from "../assets/ThemeToggle.astro";
+---
+
+<header class="bg-[var(--color-white)]">
+  <Wrapper class="pt-14">
+    <div class="flex flex-row items-center justify-between w-full">
+      <Logo />
+      <div class="ml-auto flex items-center gap-4">
+        <ThemeToggle />
+      </div>
+    </div>
+  </Wrapper>
+</header>

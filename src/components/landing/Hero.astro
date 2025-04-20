@@ -1,0 +1,113 @@
+---
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { getCollection } from "astro:content";
+
+// Get all home sections and sort by order
+const sections = await getCollection('homeSections');
+const sortedSections = sections.sort((a, b) => a.data.order - b.data.order);
+
+// Find specific sections
+const heroSection = sortedSections.find(section => section.data.section === "hero");
+const aboutSection = sortedSections.find(section => section.data.section === "about");
+const workSection = sortedSections.find(section => section.data.section === "work");
+const lifestyleSection = sortedSections.find(section => section.data.section === "lifestyle");
+const nowSection = sortedSections.find(section => section.data.section === "now");
+
+// Split hero text into lines
+const heroLines = heroSection?.body.split('\n') || [];
+---
+
+<section>
+  <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+    <Text
+      tag="h1"
+      variant="textLG"
+      class="text-black dark:text-white font-medium"
+    >
+      {heroLines.map((line, i) => (
+        <>
+          {line}
+          {i < heroLines.length - 1 && <br />}
+        </>
+      ))}
+    </Text>
+  </Wrapper>
+  <Wrapper variant="standard" class="py-12">
+    <Text
+      tag="h1"
+      variant="textLG"
+      class="text-black dark:text-white font-medium mb-4"
+    >
+      {aboutSection?.data.title}
+    </Text>
+    <div class="border-t dark:border-white/10 border-black/10 pt-2">
+      <div class="ml-0 md:ml-12 lg:ml-24">
+        <Text
+          tag="p"
+          variant="textSM"
+          class="2xl:text-base mt-4 dark:text-zinc-400 text-zinc-500"
+        >
+          {aboutSection?.body}
+        </Text>
+      </div>
+    </div>
+
+    <Text
+      tag="h1"
+      variant="textLG"
+      class="text-black dark:text-white font-medium mb-4 mt-36"
+    >
+      {workSection?.data.title}
+    </Text>
+    <div class="border-t dark:border-white/10 border-black/10 pt-2">
+      <div class="ml-0 md:ml-12 lg:ml-24">
+        <Text
+          tag="p"
+          variant="textSM"
+          class="2xl:text-base mt-4 dark:text-zinc-400 text-zinc-500"
+        >
+          {workSection?.body}
+        </Text>
+      </div>
+    </div>
+
+    <Text
+      tag="h1"
+      variant="textLG"
+      class="text-black dark:text-white font-medium mb-4 mt-36"
+    >
+      {lifestyleSection?.data.title}
+    </Text>
+    <div class="border-t dark:border-white/10 border-black/10 pt-2">
+      <div class="ml-0 md:ml-12 lg:ml-24">
+        <Text
+          tag="p"
+          variant="textSM"
+          class="2xl:text-base mt-4 dark:text-zinc-400 text-zinc-500"
+        >
+          {lifestyleSection?.body}
+        </Text>
+      </div>
+    </div>
+
+    <Text
+      tag="h1"
+      variant="textLG"
+      class="text-black dark:text-white font-medium mb-4 mt-36"
+    >
+      {nowSection?.data.title}
+    </Text>
+    <div class="border-t dark:border-white/10 border-black/10 pt-2">
+      <div class="ml-0 md:ml-12 lg:ml-24">
+        <Text
+          tag="p"
+          variant="textSM"
+          class="2xl:text-base mt-4 dark:text-zinc-400 text-zinc-500"
+        >
+          {nowSection?.body}
+        </Text>
+      </div>
+    </div>
+  </Wrapper>
+</section>
