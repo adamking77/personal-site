@@ -82,7 +82,7 @@ const nowContent = processMarkdown(nowSection?.body);
   <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
     <Text
       tag="h1"
-      variant="textXL"
+      variant="textLG"
       class="font-medium"
       set:html={heroLines.join('<br />')}
     />
@@ -90,7 +90,7 @@ const nowContent = processMarkdown(nowSection?.body);
   <Wrapper variant="standard" class="py-12">
     <Text
       tag="h1"
-      variant="textXL"
+      variant="textLG"
       class="font-medium mb-4"
     >
       {aboutSection?.data.title}
@@ -101,7 +101,7 @@ const nowContent = processMarkdown(nowSection?.body);
           <Text
             tag="p"
             variant="textSM"
-            class="mt-4"
+            class="2xl:text-base mt-4"
             set:html={paragraph}
           />
         ))}
@@ -110,7 +110,7 @@ const nowContent = processMarkdown(nowSection?.body);
 
     <Text
       tag="h1"
-      variant="textXL"
+      variant="textLG"
       class="font-medium mb-4 mt-36"
     >
       {workSection?.data.title}
@@ -121,7 +121,7 @@ const nowContent = processMarkdown(nowSection?.body);
           <Text
             tag="p"
             variant="textSM"
-            class="mt-4"
+            class="2xl:text-base mt-4"
             set:html={paragraph}
           />
         ))}
@@ -130,7 +130,7 @@ const nowContent = processMarkdown(nowSection?.body);
 
     <Text
       tag="h1"
-      variant="textXL"
+      variant="textLG"
       class="font-medium mb-4 mt-36"
     >
       {nowSection?.data.title}
@@ -141,7 +141,7 @@ const nowContent = processMarkdown(nowSection?.body);
           <Text
             tag="p"
             variant="textSM"
-            class="mt-4"
+            class="2xl:text-base mt-4"
             set:html={paragraph}
           />
         ))}
