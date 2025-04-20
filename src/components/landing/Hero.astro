@@ -28,7 +28,7 @@ const processMarkdown = (content: string | undefined): string[] => {
     // [text](url) and [text] (url)
     return paragraph.replace(
       /\[([^\]]+)\]\s*\(([^)]+)\)/g,
-      '<a href="$2">$1</a>'
+      '<a href="$2" class="underline">$1</a>'
     );
   });
 };
