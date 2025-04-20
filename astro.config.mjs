@@ -23,6 +23,12 @@ export default defineConfig({
     skipInline: false,
     drafts: true
   },
-  site: 'https://yourdomain.com',
-  integrations: [tailwind(), sitemap(), mdx()]
+  site: 'http://localhost:4321',
+  integrations: [
+    tailwind({
+      applyBaseStyles: false
+    }), 
+    sitemap(), 
+    mdx()
+  ]
 });

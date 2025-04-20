@@ -63,7 +63,7 @@ const Tag = tag;
 const baseClasses = textStyles[variant] || textStyles.textBase; // Fallback to textMD if variant not found
 
 // Ensure link styling takes precedence by putting it at the front
-const linkClasses = tag === "a" ? "!text-[#2c4863] underline hover:text-black dark:hover:text-white" : "";
+const linkClasses = tag === "a" ? "text-[#2c4863] underline hover:text-black dark:hover:text-white" : "";
 
 // Put linkClasses first to ensure it takes precedence
 const combinedClasses = `${linkClasses} ${baseClasses} ${className}`.trim();

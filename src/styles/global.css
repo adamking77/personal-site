@@ -1,9 +1,8 @@
-@import "tailwindcss";
-@plugin "@tailwindcss/typography";
-@plugin "@tailwindcss/forms";
-@plugin "tailwind-scrollbar-hide";
-@custom-variant dark (&:where(.dark, .dark *));
-@theme {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
   /* Typography */
   --font-sans: 'Lexend', sans-serif;
 
@@ -14,20 +13,42 @@
   --color-border: rgba(0, 0, 0, 0.1);
 }
 
-@supports (font-variation-settings: normal) {
-  /* Use variable font if supported */
-  :root {
-    font-family: InterVariable, sans-serif;
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  
+  body {
+    @apply bg-[var(--color-white)] text-[var(--color-text)];
+    font-family: var(--font-sans);
+    font-weight: 300;
   }
 }
 
-:root {
-  /* Typography */
-  font-family: 'Lexend', sans-serif;
-  font-weight: 300;
-  color: var(--color-text);
+@layer components {
+  .container {
+    @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+}
 
-  /* Shiki  code styles */
+/* Dark mode styles */
+:root.dark {
+  --color-white: #12161d;
+  --color-text: #ffffff;
+  --color-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Border colors */
+.border-t, .border-b, .border-l, .border-r, .border, .divide-y > * {
+  border-color: var(--color-border);
+}
+
+.divide-y > * + * {
+  border-top-color: var(--color-border);
+}
+
+/* Code block styles */
+:root {
   --astro-code-color-text: theme(colors.zinc.900);
   --astro-code-background: theme(colors.zinc.100);
   --astro-code-token-punctuation: theme(colors.zinc.800);
@@ -71,10 +92,8 @@
   --astro-code-token-italic: italic;
   --astro-code-token-underline: underline;
 }
+
 :root.dark {
-  --color-white: #12161d;
-  --color-text: #ffffff;
-  --color-border: rgba(255, 255, 255, 0.1);
   --astro-code-color-text: theme(colors.zinc.300);
   --astro-code-background: #ffffff05;
   --astro-code-token-punctuation: theme(colors.zinc.400);
@@ -114,28 +133,5 @@
   --astro-code-token-regex: theme(colors.blue.400);
   --astro-code-token-doctype: theme(colors.zinc.500);
   --astro-code-token-prolog: theme(colors.zinc.500);
-}
-
-body {
-  background-color: var(--color-white);
-}
-
-/* Update all text elements in light mode */
-h1, h2, h3, h4, h5, h6, p, span, a {
-  color: var(--color-text);
-}
-
-/* Dark mode overrides */
-.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6, .dark p, .dark span, .dark a {
-  color: var(--color-text);
-}
-
-/* Border colors */
-.border-t, .border-b, .border-l, .border-r, .border, .divide-y > * {
-  border-color: var(--color-border);
-}
-
-.divide-y > * + * {
-  border-top-color: var(--color-border);
 }
 
