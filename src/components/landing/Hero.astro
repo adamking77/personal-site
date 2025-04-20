@@ -28,7 +28,7 @@ const processMarkdown = (content: string | undefined): string[] => {
     // Process links in the paragraph
     const processedParagraph = paragraph.replace(
       /\[([^\]]+)\] \(([^)]+)\)/g, 
-      '<a href="$2" class="text-[#2c4863] hover:text-black dark:hover:text-white underline">$1</a>'
+      '<a href="$2" class="underline">$1</a>'
     );
     
     return processedParagraph;

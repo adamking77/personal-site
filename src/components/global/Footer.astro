@@ -1,40 +1,19 @@
 ---
-import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { getCollection } from "astro:content";
 
 // Get footer content
 const footerContent = await getCollection('footer');
 const footer = footerContent[0];
-
-// Split the lexendText into parts to handle the link manually
-const parts = footer.data.lexendText.split(/\[|\]|\(|\)/);
-const beforeLink = parts[0];
-const linkText = parts[1];
-const linkUrl = parts[3];
-const afterLink = parts[4];
 ---
 
-<footer>
-  <Wrapper variant="standard" class="py-12">
-    <div class="grid grid-cols-1 gap-12">
-      <Text
-        tag="p"
-        variant="textSM"
-      >
-        {footer.data.copyright}
-      </Text>
-      <Text
-        tag="p"
-        variant="textSM"
-      >
-        {beforeLink}<Text
-          tag="a"
-          variant="textSM"
-          href={linkUrl}
-          class="text-[#2c4863] hover:text-black dark:hover:text-white underline"
-        >{linkText}</Text>{afterLink}
-      </Text>
+<footer class="py-12">
+  <Wrapper variant="standard">
+    <div class="space-y-8">
+      <p class="text-sm text-[var(--color-text)]">© 2010 - 2025 Adam King . All Rights Reserved.</p>
+      <p class="text-sm text-[var(--color-text)]">
+        This website proudly uses <a href="https://www.lexend.com/" class="underline">Lexend</a> font, a specialty font designed to reduce cognitive noise, and improve reading fluency, especially for neurodivergent people like myself.
+      </p>
     </div>
   </Wrapper>
 </footer>
