@@ -1,10 +1,10 @@
 ---
 // Fundations
-import Text from "../fundations/elements/Text.astro";
-import Wrapper from "../fundations/containers/Wrapper.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 // Assets
 import Logo from "./Logo.astro";
-import ThemeToggle from "../assets/ThemeToggle.astro";
+import ThemeToggle from "@/components/assets/ThemeToggle.astro";
 ---
 
 <header class="bg-[var(--color-white)]">
@@ -17,3 +17,19 @@ import ThemeToggle from "../assets/ThemeToggle.astro";
     </div>
   </Wrapper>
 </header>
+
+<nav class="py-6">
+  <Wrapper variant="standard">
+    <div class="flex items-center justify-between">
+      <Text
+        tag="a"
+        href="/"
+        variant="textLG"
+        class="nav-title"
+      >
+        Adam King
+      </Text>
+      <ThemeToggle />
+    </div>
+  </Wrapper>
+</nav>
