@@ -11,7 +11,6 @@ const sortedSections = sections.sort((a, b) => a.data.order - b.data.order);
 const heroSection = sortedSections.find(section => section.data.section === "hero");
 const aboutSection = sortedSections.find(section => section.data.section === "about");
 const workSection = sortedSections.find(section => section.data.section === "work");
-const lifestyleSection = sortedSections.find(section => section.data.section === "lifestyle");
 const nowSection = sortedSections.find(section => section.data.section === "now");
 
 // Split hero text into lines
@@ -20,25 +19,12 @@ const heroLines = heroSection?.body.split('\n') || [];
 // Function to process markdown content
 const processMarkdown = (content: string | undefined): string[] => {
   if (!content) return [];
-  
-  // Split content into paragraphs
-  const paragraphs = content.split('\n\n').filter((p: string) => p.trim());
-  
-  return paragraphs.map((paragraph: string) => {
-    // Process links in the paragraph
-    const processedParagraph = paragraph.replace(
-      /\[([^\]]+)\] \(([^)]+)\)/g, 
-      '<a href="$2" class="underline">$1</a>'
-    );
-    
-    return processedParagraph;
-  });
+  return content.split('\n\n').filter((p: string) => p.trim());
 };
 
 // Process each section's content
 const aboutContent = processMarkdown(aboutSection?.body);
 const workContent = processMarkdown(workSection?.body);
-const lifestyleContent = processMarkdown(lifestyleSection?.body);
 const nowContent = processMarkdown(nowSection?.body);
 ---
 
@@ -86,102 +72,68 @@ const nowContent = processMarkdown(nowSection?.body);
     <Text
       tag="h1"
       variant="textLG"
-      class="font-medium animate-on-scroll"
-    >
-      {heroLines.map((line, i) => (
-        <>
-          {line}
-          {i < heroLines.length - 1 && <br />}
-        </>
-      ))}
-    </Text>
+      class="font-medium"
+      set:html={heroLines.join('<br />')}
+    />
   </Wrapper>
   <Wrapper variant="standard" class="py-12">
-    <div class="animate-on-scroll">
-      <Text
-        tag="h1"
-        variant="textLG"
-        class="font-medium mb-4"
-      >
-        {aboutSection?.data.title}
-      </Text>
-      <div class="border-t dark:border-white/10 border-black/10 pt-2">
-        <div class="ml-0 md:ml-12 lg:ml-24">
-          {aboutContent.map((paragraph: string, index: number) => (
-            <Text
-              tag="p"
-              variant="textSM"
-              class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
-              set:html={paragraph}
-            />
-          ))}
-        </div>
+    <Text
+      tag="h1"
+      variant="textLG"
+      class="font-medium mb-4"
+    >
+      {aboutSection?.data.title}
+    </Text>
+    <div class="border-t dark:border-white/10 border-black/10 pt-2">
+      <div class="ml-0 md:ml-12 lg:ml-24">
+        {aboutContent.map((paragraph: string) => (
+          <Text
+            tag="p"
+            variant="textSM"
+            class="2xl:text-base mt-4"
+            set:html={paragraph}
+          />
+        ))}
       </div>
     </div>
 
-    <div class="animate-on-scroll delay-200 mt-36">
-      <Text
-        tag="h1"
-        variant="textLG"
-        class="font-medium mb-4"
-      >
-        {workSection?.data.title}
-      </Text>
-      <div class="border-t dark:border-white/10 border-black/10 pt-2">
-        <div class="ml-0 md:ml-12 lg:ml-24">
-          {workContent.map((paragraph: string, index: number) => (
-            <Text
-              tag="p"
-              variant="textSM"
-              class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
-              set:html={paragraph}
-            />
-          ))}
-        </div>
+    <Text
+      tag="h1"
+      variant="textLG"
+      class="font-medium mb-4 mt-36"
+    >
+      {workSection?.data.title}
+    </Text>
+    <div class="border-t dark:border-white/10 border-black/10 pt-2">
+      <div class="ml-0 md:ml-12 lg:ml-24">
+        {workContent.map((paragraph: string) => (
+          <Text
+            tag="p"
+            variant="textSM"
+            class="2xl:text-base mt-4"
+            set:html={paragraph}
+          />
+        ))}
       </div>
     </div>
 
-    <div class="animate-on-scroll delay-400 mt-36">
-      <Text
-        tag="h1"
-        variant="textLG"
-        class="font-medium mb-4"
-      >
-        {lifestyleSection?.data.title}
-      </Text>
-      <div class="border-t dark:border-white/10 border-black/10 pt-2">
-        <div class="ml-0 md:ml-12 lg:ml-24">
-          {lifestyleContent.map((paragraph: string, index: number) => (
-            <Text
-              tag="p"
-              variant="textSM"
-              class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
-              set:html={paragraph}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
-
-    <div class="animate-on-scroll delay-400 mt-36">
-      <Text
-        tag="h1"
-        variant="textLG"
-        class="font-medium mb-4"
-      >
-        {nowSection?.data.title}
-      </Text>
-      <div class="border-t dark:border-white/10 border-black/10 pt-2">
-        <div class="ml-0 md:ml-12 lg:ml-24">
-          {nowContent.map((paragraph: string, index: number) => (
-            <Text
-              tag="p"
-              variant="textSM"
-              class={`2xl:text-base ${index > 0 ? 'mt-4' : 'mt-4'}`}
-              set:html={paragraph}
-            />
-          ))}
-        </div>
+    <Text
+      tag="h1"
+      variant="textLG"
+      class="font-medium mb-4 mt-36"
+    >
+      {nowSection?.data.title}
+    </Text>
+    <div class="border-t dark:border-white/10 border-black/10 pt-2">
+      <div class="ml-0 md:ml-12 lg:ml-24">
+        {nowContent.map((paragraph: string) => (
+          <Text
+            tag="p"
+            variant="textSM"
+            class="2xl:text-base mt-4"
+            set:html={paragraph}
+          />
+        ))}
       </div>
     </div>
   </Wrapper>
