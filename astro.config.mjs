@@ -3,8 +3,11 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import path from 'path';
+import node from '@astrojs/node';
 
 export default defineConfig({
+  output: 'server',
+  adapter: node({ mode: 'standalone' }),
   markdown: {
     drafts: true,
     shikiConfig: {
