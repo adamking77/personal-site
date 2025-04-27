@@ -4,6 +4,8 @@ import Button from '../components/fundations/elements/Button.astro';
 import { fetchPayloadPage } from '../utils/payload';
 import { Astro } from 'astro';
 
+export const prerender = false;
+
 const { slug } = Astro.params;
 const page = await fetchPayloadPage(slug);
 
