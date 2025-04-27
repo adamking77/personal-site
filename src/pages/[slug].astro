@@ -1,0 +1,35 @@
+import Hero from '../components/landing/Hero.astro';
+import Text from '../components/fundations/elements/Text.astro';
+import Button from '../components/fundations/elements/Button.astro';
+import { fetchPayloadPage } from '../utils/payload';
+import { Astro } from 'astro';
+
+const { slug } = Astro.params;
+const page = await fetchPayloadPage(slug);
+
+<html>
+  <body>
+    {page ? (
+      <>
+        <h1>{page.title}</h1>
+        {Array.isArray(page.blocks) && page.blocks.map((block: any) => {
+          if (block.blockType === 'hero') {
+            return <Hero heading={block.heading} subheading={block.subheading} backgroundImage={block.backgroundImage} />;
+          }
+          if (block.blockType === 'richText') {
+            return <Text>{block.content}</Text>;
+          }
+          if (block.blockType === 'image') {
+            return <img src={block.image?.url} alt={block.caption || ''} />;
+          }
+          if (block.blockType === 'callToAction') {
+            return <Button href={block.url}>{block.text}</Button>;
+          }
+          return null;
+        })}
+      </>
+    ) : (
+      <h1>Page not found</h1>
+    )}
+  </body>
+</html> 
