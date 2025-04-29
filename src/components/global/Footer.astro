@@ -1,19 +1,24 @@
 ---
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-import { getCollection } from "astro:content";
 
-// Get footer content
-const footerContent = await getCollection('footer');
-const footer = footerContent[0];
+// Fetch footer data from Payload CMS
+const res = await fetch('https://payload-cms-7e43.onrender.com/api/globals/footer');
+const footer = await res.json();
 ---
 
 <footer class="py-12">
   <Wrapper variant="standard">
     <div class="space-y-8">
-      <p class="text-sm text-[var(--color-text)]">© 2010 - 2025 Adam King . All Rights Reserved.</p>
-      <p class="text-sm text-[var(--color-text)]">
-        This website proudly uses <a href="https://www.lexend.com/" class="underline">Lexend</a> font, a specialty font designed to reduce cognitive noise, and improve reading fluency, especially for neurodivergent people like myself.
-      </p>
+      <p class="text-sm text-[var(--color-text)]">{footer.copyright}</p>
+      {footer.fontCredit?.enabled && (
+        <p class="text-sm text-[var(--color-text)]">
+          {footer.fontCredit.text}
+          <a href={footer.fontCredit.fontLink} class="underline" target="_blank" rel="noopener">Lexend</a>
+        </p>
+      )}
+      {footer.additionalContent?.html && (
+        <div class="text-sm text-[var(--color-text)]" set:html={footer.additionalContent.html} />
+      )}
     </div>
   </Wrapper>
 </footer>
