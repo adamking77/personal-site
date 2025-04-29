@@ -1,42 +1,36 @@
 ---
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
-import { getCollection } from "astro:content";
 
-// Get all home sections and sort by order
-const sections = await getCollection('homeSections');
-const sortedSections = sections.sort((a, b) => a.data.order - b.data.order);
+// Fetch home page data from Payload CMS
+const res = await fetch('https://payload-cms-7e43.onrender.com/api/pages?where[slug][equals]=/');
+const data = await res.json();
+const page = data.docs[0];
+const sections = (page && page.sections) || [];
 
-// Find specific sections
-const heroSection = sortedSections.find(section => section.data.section === "hero");
-const aboutSection = sortedSections.find(section => section.data.section === "about");
-const workSection = sortedSections.find(section => section.data.section === "work");
-const nowSection = sortedSections.find(section => section.data.section === "now");
+const heroSection = sections.find(section => section.sectionType === "hero");
+const aboutSection = sections.find(section => section.sectionType === "about");
+const workSection = sections.find(section => section.sectionType === "work");
+const nowSection = sections.find(section => section.sectionType === "now");
 
-// Split hero text into lines
-const heroLines = heroSection?.body.split('\n') || [];
+const heroLines = heroSection?.content?.split('\n') || [];
 
-// Function to process markdown content
-const processMarkdown = (content: string | undefined): string[] => {
+const processRichText = (content) => {
   if (!content) return [];
-  
-  // Split content into paragraphs
-  const paragraphs = content.split('\n\n').filter((p: string) => p.trim());
-  
-  return paragraphs.map((paragraph: string) => {
-    // Convert markdown links to HTML, handling both formats:
-    // [text](url) and [text] (url)
-    return paragraph.replace(
-      /\[([^\]]+)\]\s*\(([^)]+)\)/g,
-      '<a href="$2" class="underline">$1</a>'
-    );
-  });
+  // If content is a string, treat as plain text
+  if (typeof content === 'string') {
+    return content.split('\n\n').filter(Boolean);
+  }
+  // If content is a Payload richText object, use .html
+  if (content.html) {
+    return [content.html];
+  }
+  return [];
 };
 
-// Process each section's content
-const aboutContent = processMarkdown(aboutSection?.body);
-const workContent = processMarkdown(workSection?.body);
-const nowContent = processMarkdown(nowSection?.body);
+const aboutContent = processRichText(aboutSection?.content);
+const workContent = processRichText(workSection?.content);
+const nowContent = processRichText(nowSection?.content);
 ---
 
 <script>
@@ -94,11 +88,11 @@ const nowContent = processMarkdown(nowSection?.body);
         variant="textLG"
         class="font-medium mb-4"
       >
-        {aboutSection?.data.title}
+        {aboutSection?.title}
       </Text>
       <div class="border-t dark:border-white/10 border-black/10 pt-2">
         <div class="ml-0 md:ml-12 lg:ml-24">
-          {aboutContent.map((paragraph: string) => (
+          {aboutContent.map((paragraph) => (
             <Text
               tag="p"
               variant="textSM"
@@ -116,11 +110,11 @@ const nowContent = processMarkdown(nowSection?.body);
         variant="textLG"
         class="font-medium mb-4"
       >
-        {workSection?.data.title}
+        {workSection?.title}
       </Text>
       <div class="border-t dark:border-white/10 border-black/10 pt-2">
         <div class="ml-0 md:ml-12 lg:ml-24">
-          {workContent.map((paragraph: string) => (
+          {workContent.map((paragraph) => (
             <Text
               tag="p"
               variant="textSM"
@@ -138,11 +132,11 @@ const nowContent = processMarkdown(nowSection?.body);
         variant="textLG"
         class="font-medium mb-4"
       >
-        {nowSection?.data.title}
+        {nowSection?.title}
       </Text>
       <div class="border-t dark:border-white/10 border-black/10 pt-2">
         <div class="ml-0 md:ml-12 lg:ml-24">
-          {nowContent.map((paragraph: string) => (
+          {nowContent.map((paragraph) => (
             <Text
               tag="p"
               variant="textSM"
