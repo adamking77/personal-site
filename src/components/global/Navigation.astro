@@ -5,6 +5,11 @@ import Wrapper from "../fundations/containers/Wrapper.astro";
 // Assets
 import Logo from "./Logo.astro";
 import ThemeToggle from "../assets/ThemeToggle.astro";
+
+// Fetch navigation data from Payload CMS
+const res = await fetch('https://payload-cms-7e43.onrender.com/api/globals/navigation');
+const navigation = await res.json();
+const links: { text: string; url: string }[] = navigation.links || [];
 ---
 
 <header class="bg-[var(--color-white)]">
@@ -12,7 +17,10 @@ import ThemeToggle from "../assets/ThemeToggle.astro";
     <div class="flex flex-row items-center justify-between w-full">
       <Logo />
       <div class="ml-auto flex items-center gap-4">
-        <ThemeToggle />
+        {navigation.showThemeToggle && <ThemeToggle />}
+        {links.map(link => (
+          <a href={link.url} class="text-sm underline" target="_blank" rel="noopener">{link.text}</a>
+        ))}
       </div>
     </div>
   </Wrapper>
