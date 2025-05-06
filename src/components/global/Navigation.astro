@@ -17,10 +17,7 @@ const links: { text: string; url: string }[] = navigation.links || [];
     <div class="flex flex-row items-center justify-between w-full">
       <Logo />
       <div class="ml-auto flex items-center gap-4">
-        {navigation.showThemeToggle && <ThemeToggle />}
-        {links.map(link => (
-          <a href={link.url} class="text-sm underline" target="_blank" rel="noopener">{link.text}</a>
-        ))}
+        <ThemeToggle />
       </div>
     </div>
   </Wrapper>

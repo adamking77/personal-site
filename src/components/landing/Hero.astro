@@ -1,36 +1,21 @@
 ---
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+import { getCollection } from 'astro:content';
+const sections = await getCollection('homeSections');
+const heroSection = sections.find(section => section.data.section === "hero");
+const aboutSection = sections.find(section => section.data.section === "about");
+const workSection = sections.find(section => section.data.section === "work");
+const nowSection = sections.find(section => section.data.section === "now");
 
-// Fetch home page data from Payload CMS
-const res = await fetch('https://payload-cms-7e43.onrender.com/api/pages?where[slug][equals]=/');
-const data = await res.json();
-const page = data.docs[0];
-const sections = (page && page.sections) || [];
-
-const heroSection = sections.find(section => section.sectionType === "hero");
-const aboutSection = sections.find(section => section.sectionType === "about");
-const workSection = sections.find(section => section.sectionType === "work");
-const nowSection = sections.find(section => section.sectionType === "now");
-
-const heroLines = heroSection?.content?.split('\n') || [];
-
-const processRichText = (content) => {
+const heroLines = heroSection?.body.trim().split('\n') || [];
+const processRichText = (content: string | undefined): string[] => {
   if (!content) return [];
-  // If content is a string, treat as plain text
-  if (typeof content === 'string') {
-    return content.split('\n\n').filter(Boolean);
-  }
-  // If content is a Payload richText object, use .html
-  if (content.html) {
-    return [content.html];
-  }
-  return [];
+  return content.trim().split('\n\n').filter(Boolean);
 };
-
-const aboutContent = processRichText(aboutSection?.content);
-const workContent = processRichText(workSection?.content);
-const nowContent = processRichText(nowSection?.content);
+const aboutContent = processRichText(aboutSection?.body);
+const workContent = processRichText(workSection?.body);
+const nowContent = processRichText(nowSection?.body);
 ---
 
 <script>
@@ -88,11 +73,11 @@ const nowContent = processRichText(nowSection?.content);
         variant="textLG"
         class="font-medium mb-4"
       >
-        {aboutSection?.title}
+        {aboutSection?.data.title}
       </Text>
       <div class="border-t dark:border-white/10 border-black/10 pt-2">
         <div class="ml-0 md:ml-12 lg:ml-24">
-          {aboutContent.map((paragraph) => (
+          {aboutContent.map((paragraph: string) => (
             <Text
               tag="p"
               variant="textSM"
@@ -110,11 +95,11 @@ const nowContent = processRichText(nowSection?.content);
         variant="textLG"
         class="font-medium mb-4"
       >
-        {workSection?.title}
+        {workSection?.data.title}
       </Text>
       <div class="border-t dark:border-white/10 border-black/10 pt-2">
         <div class="ml-0 md:ml-12 lg:ml-24">
-          {workContent.map((paragraph) => (
+          {workContent.map((paragraph: string) => (
             <Text
               tag="p"
               variant="textSM"
@@ -132,11 +117,11 @@ const nowContent = processRichText(nowSection?.content);
         variant="textLG"
         class="font-medium mb-4"
       >
-        {nowSection?.title}
+        {nowSection?.data.title}
       </Text>
       <div class="border-t dark:border-white/10 border-black/10 pt-2">
         <div class="ml-0 md:ml-12 lg:ml-24">
-          {nowContent.map((paragraph) => (
+          {nowContent.map((paragraph: string) => (
             <Text
               tag="p"
               variant="textSM"

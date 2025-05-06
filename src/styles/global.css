@@ -59,7 +59,7 @@ a:not(.nav-title) {
 /* Dark mode styles */
 :root.dark {
   --color-white: #12161d;
-  --color-text: #ffffff;
+  --color-text: #ededed;
   --color-border: rgba(255, 255, 255, 0.1);
 }
 
