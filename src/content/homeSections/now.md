@@ -12,7 +12,7 @@ Mapping travel through the UK, Austria, Balkans, and SE Asia for the remainder o
 
 Making sense of shifting geopolitical landscapes through the lens of a perpetual foreigner.
 
-Find me on [Instagram] (https://www.instagram.com/adam_m_king/) though I'm increasingly selective about social media.
+Find me on [Instagram](https://www.instagram.com/adam_m_king/) though I'm increasingly selective about social media.
 
 If you're in my upcoming travel regions and want to discuss world jazz over whiskey, or if you're facing a challenge that defies conventional solutions, let's connect.
 

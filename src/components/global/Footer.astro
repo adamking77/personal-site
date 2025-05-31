@@ -1,6 +1,7 @@
 ---
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { getCollection } from 'astro:content';
+import { marked } from 'marked'; // Import marked
 const [footer] = await getCollection('footer');
 ---
 
@@ -9,7 +10,7 @@ const [footer] = await getCollection('footer');
     <div class="space-y-8">
       <p class="text-sm text-[var(--color-text)]">{footer.data.copyright}</p>
       <p class="text-sm text-[var(--color-text)]">
-        <span set:html={footer.data.lexendText} />
+        <span set:html={marked.parse(footer.data.lexendText) as string} />
       </p>
     </div>
   </Wrapper>

@@ -2,6 +2,7 @@
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { getCollection } from 'astro:content';
+import { marked } from 'marked'; // Import marked
 const sections = await getCollection('homeSections');
 const heroSection = sections.find(section => section.data.section === "hero");
 const aboutSection = sections.find(section => section.data.section === "about");
@@ -82,7 +83,7 @@ const nowContent = processRichText(nowSection?.body);
               tag="p"
               variant="textSM"
               class="2xl:text-base mt-4"
-              set:html={paragraph}
+              set:html={marked.parse(paragraph) as string}
             />
           ))}
         </div>
@@ -104,7 +105,7 @@ const nowContent = processRichText(nowSection?.body);
               tag="p"
               variant="textSM"
               class="2xl:text-base mt-4"
-              set:html={paragraph}
+              set:html={marked.parse(paragraph) as string}
             />
           ))}
         </div>
@@ -126,7 +127,7 @@ const nowContent = processRichText(nowSection?.body);
               tag="p"
               variant="textSM"
               class="2xl:text-base mt-4"
-              set:html={paragraph}
+              set:html={marked.parse(paragraph) as string}
             />
           ))}
         </div>

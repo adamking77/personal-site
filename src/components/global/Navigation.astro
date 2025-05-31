@@ -8,7 +8,12 @@ import ThemeToggle from "../assets/ThemeToggle.astro";
 
 // Fetch navigation data from Payload CMS
 const res = await fetch('https://payload-cms-7e43.onrender.com/api/globals/navigation');
-const navigation = await res.json();
+let navigation = {};
+if (res.ok) {
+  navigation = await res.json();
+} else {
+  console.error(`Error fetching navigation: ${res.status} ${res.statusText}`);
+}
 const links: { text: string; url: string }[] = navigation.links || [];
 ---
 
