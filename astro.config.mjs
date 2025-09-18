@@ -3,8 +3,6 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from "@astrojs/sitemap";
 import mdx from "@astrojs/mdx";
 import path from 'path';
-import vercel from '@astrojs/vercel';
-
 export default defineConfig({
   output: 'static',
   markdown: {
