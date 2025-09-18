@@ -6,8 +6,7 @@ import path from 'path';
 import vercel from '@astrojs/vercel';
 
 export default defineConfig({
-  output: 'server',
-  adapter: vercel(),
+  output: 'static',
   markdown: {
     drafts: true,
     shikiConfig: {
