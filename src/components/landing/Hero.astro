@@ -31,7 +31,17 @@ const nowContent = processRichText(nowSection?.body);
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('animate-in');
-        observer.unobserve(entry.target); // Stop observing once animated
+        // Fade in hero image after text animation
+        if (entry.target.classList.contains('hero-slide-in')) {
+          setTimeout(() => {
+            const heroImage = document.getElementById('hero-image');
+            if (heroImage) {
+              heroImage.style.opacity = '0.7';
+              heroImage.style.transform = 'translateX(0)';
+            }
+          }, 200);
+        }
+        observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
@@ -40,29 +50,103 @@ const nowContent = processRichText(nowSection?.body);
   document.querySelectorAll('.animate-on-scroll').forEach((element) => {
     observer.observe(element);
   });
+
+  // Scroll parallax for hero image
+  let ticking = false;
+  function updateParallax() {
+    const heroImage = document.getElementById('hero-image');
+    if (heroImage) {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * -0.3;
+      heroImage.style.transform = `translateY(${rate}px)`;
+    }
+    ticking = false;
+  }
+
+  function requestTick() {
+    if (!ticking) {
+      requestAnimationFrame(updateParallax);
+      ticking = true;
+    }
+  }
+
+  window.addEventListener('scroll', requestTick);
+
+  // Page load animations for hero
+  function triggerHeroAnimations() {
+    const heroText = document.querySelector('.hero-slide-in');
+    const heroImage = document.getElementById('hero-image');
+    
+    if (heroText && heroImage) {
+      // Check if hero is in viewport on load
+      const heroRect = heroText.getBoundingClientRect();
+      const isInViewport = heroRect.top < window.innerHeight && heroRect.bottom > 0;
+      
+      if (isInViewport) {
+        console.log('Triggering hero load animations');
+        // Trigger text animation immediately
+        heroText.classList.add('animate-in');
+        
+        // Trigger image animation after delay
+        setTimeout(() => {
+          console.log('Animating hero image');
+          heroImage.style.opacity = '0.7';
+          heroImage.style.transition = 'opacity 2s cubic-bezier(0.16, 1, 0.3, 1)';
+        }, 200);
+      }
+    }
+  }
+
+  // Trigger on page load
+  window.addEventListener('DOMContentLoaded', triggerHeroAnimations);
 </script>
 
 <style>
   .animate-in {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) translateX(0);
+  }
+
+  .hero-slide-in {
+    transform: translateX(-40px);
+    transition: opacity 2s cubic-bezier(0.16, 1, 0.3, 1), transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hero-bg {
+    transition: transform 0.1s ease-out;
+    will-change: transform;
+  }
+
+  .hero-bg {
+    background-image: url('/images/portrait.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    mask: radial-gradient(ellipse 70% 80% at center, black 30%, transparent 80%);
+    -webkit-mask: radial-gradient(ellipse 70% 80% at center, black 30%, transparent 80%);
   }
 </style>
 
-<section>
-  <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
-    <Text
-      tag="h1"
-      variant="textLG"
-      class="font-medium animate-on-scroll"
-      set:html={heroLines.join('<br />')}
-    />
+<section class="hero-section mt-12">
+  <Wrapper variant="wide" class="min-h-[80vh] py-16 lg:py-24 relative">
+    <div class="flex items-center h-full">
+      <div class="w-full lg:w-3/5 z-10 relative">
+        <Text
+          tag="h1"
+          variant="displayXS"
+          class="font-medium leading-loose animate-on-scroll hero-slide-in text-3xl lg:text-5xl"
+          set:html={heroLines.join('<br />')}
+        />
+      </div>
+    </div>
+    <div class="absolute top-0 right-0 w-3/5 h-full hero-bg" id="hero-image"></div>
   </Wrapper>
-  <Wrapper variant="standard" class="py-12">
+  <Wrapper variant="standard" class="py-16 lg:py-24 max-w-4xl">
     <div class="animate-on-scroll">
       <Text
         tag="h1"
-        variant="textLG"
+        variant="displayXS"
         class="font-medium mb-4"
       >
         {aboutSection?.data.title}
@@ -72,8 +156,8 @@ const nowContent = processRichText(nowSection?.body);
           {aboutContent.map((paragraph: string) => (
             <Text
               tag="p"
-              variant="textSM"
-              class="2xl:text-base mt-4"
+              variant="textLG"
+              class="mt-4"
               set:html={marked.parse(paragraph) as string}
             />
           ))}
@@ -81,10 +165,10 @@ const nowContent = processRichText(nowSection?.body);
       </div>
     </div>
 
-    <div class="animate-on-scroll delay-200 mt-36">
+    <div class="animate-on-scroll delay-200 mt-48">
       <Text
         tag="h1"
-        variant="textLG"
+        variant="displayXS"
         class="font-medium mb-4"
       >
         {workSection?.data.title}
@@ -94,8 +178,8 @@ const nowContent = processRichText(nowSection?.body);
           {workContent.map((paragraph: string) => (
             <Text
               tag="p"
-              variant="textSM"
-              class="2xl:text-base mt-4"
+              variant="textLG"
+              class="mt-4"
               set:html={marked.parse(paragraph) as string}
             />
           ))}
@@ -103,10 +187,10 @@ const nowContent = processRichText(nowSection?.body);
       </div>
     </div>
 
-    <div class="animate-on-scroll delay-400 mt-36">
+    <div class="animate-on-scroll delay-400 mt-48">
       <Text
         tag="h1"
-        variant="textLG"
+        variant="displayXS"
         class="font-medium mb-4"
       >
         {nowSection?.data.title}
@@ -116,8 +200,8 @@ const nowContent = processRichText(nowSection?.body);
           {nowContent.map((paragraph: string) => (
             <Text
               tag="p"
-              variant="textSM"
-              class="2xl:text-base mt-4"
+              variant="textLG"
+              class="mt-4"
               set:html={marked.parse(paragraph) as string}
             />
           ))}
