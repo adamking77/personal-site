@@ -4,6 +4,9 @@ import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { getCollection } from "astro:content";
 import LatestPosts from "@/components/blog/LatestPosts.astro";
+
+export const prerender = true;
+
 export async function getStaticPaths() {
   const allPosts = await getCollection("posts");
   const uniqueTags = [

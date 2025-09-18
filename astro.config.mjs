@@ -11,7 +11,9 @@ export default defineConfig({
   markdown: {
     drafts: true,
     shikiConfig: {
-      theme: "css-variables"
+      theme: "css-variables",
+      wrap: true,
+      skipInline: false
     }
   },
   vite: {
@@ -21,12 +23,7 @@ export default defineConfig({
       }
     }
   },
-  shikiConfig: {
-    wrap: true,
-    skipInline: false,
-    drafts: true
-  },
-  site: 'http://localhost:4321',
+  site: 'https://adamking.com',
   integrations: [
     tailwind({
       applyBaseStyles: false

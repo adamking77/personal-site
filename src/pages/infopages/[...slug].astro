@@ -1,6 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import InfoPagesLayout from '../../layouts/InfoPagesLayout.astro';
+
+export const prerender = true;
+
 export async function getStaticPaths() {
   const infoPages = await getCollection('infopages');
   const paths = infoPages.map(page => {

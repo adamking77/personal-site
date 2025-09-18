@@ -9,6 +9,15 @@ const homeSections = defineCollection({
   }),
 });
 
+const navigation = defineCollection({
+  schema: z.object({
+    links: z.array(z.object({
+      text: z.string(),
+      url: z.string(),
+    })),
+  }),
+});
+
 const footer = defineCollection({
   schema: z.object({
     copyright: z.string(),
@@ -80,6 +89,7 @@ const postsCollection = defineCollection({
   }),
 });
 export const collections = {
+  navigation: navigation,
   homeSections: homeSections,
   footer: footer,
   store: store,

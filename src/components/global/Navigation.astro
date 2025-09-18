@@ -5,16 +5,16 @@ import Wrapper from "../fundations/containers/Wrapper.astro";
 // Assets
 import Logo from "./Logo.astro";
 import ThemeToggle from "../assets/ThemeToggle.astro";
+// Content
+import { getCollection } from 'astro:content';
 
-// Fetch navigation data from Payload CMS
-const res = await fetch('https://payload-cms-7e43.onrender.com/api/globals/navigation');
-let navigation = {};
-if (res.ok) {
-  navigation = await res.json();
-} else {
-  console.error(`Error fetching navigation: ${res.status} ${res.statusText}`);
+interface NavLink {
+  text: string;
+  url: string;
 }
-const links: { text: string; url: string }[] = navigation.links || [];
+
+const [navigation] = await getCollection('navigation');
+const links: NavLink[] = navigation?.data.links || [];
 ---
 
 <header class="bg-[var(--color-white)]">
@@ -22,6 +22,9 @@ const links: { text: string; url: string }[] = navigation.links || [];
     <div class="flex flex-row items-center justify-between w-full">
       <Logo />
       <div class="ml-auto flex items-center gap-4">
+        {links.map(link => (
+          <a href={link.url} class="text-sm hover:underline"><Text>{link.text}</Text></a>
+        ))}
         <ThemeToggle />
       </div>
     </div>
