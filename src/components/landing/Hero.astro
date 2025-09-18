@@ -2,14 +2,22 @@
 import Text from "@/components/fundations/elements/Text.astro";
 import Wrapper from "@/components/fundations/containers/Wrapper.astro";
 import { getCollection } from 'astro:content';
-import { marked } from 'marked'; // Import marked
-const sections = await getCollection('homeSections');
-const heroSection = sections.find(section => section.data.section === "hero");
-const aboutSection = sections.find(section => section.data.section === "about");
-const workSection = sections.find(section => section.data.section === "work");
-const nowSection = sections.find(section => section.data.section === "now");
 
-const heroLines = heroSection?.body.trim().split('\n') || [];
+try {
+  const sections = await getCollection('homeSections');
+  var heroSection = sections.find(section => section.data.section === "hero");
+  var aboutSection = sections.find(section => section.data.section === "about");
+  var workSection = sections.find(section => section.data.section === "work");
+  var nowSection = sections.find(section => section.data.section === "now");
+} catch (error) {
+  console.error('Error loading content:', error);
+  var heroSection = null;
+  var aboutSection = null;
+  var workSection = null;
+  var nowSection = null;
+}
+
+const heroLines = heroSection?.body?.trim()?.split('\n') || ['Welcome to my site'];
 const processRichText = (content: string | undefined): string[] => {
   if (!content) return [];
   return content.trim().split('\n\n').filter(Boolean);
@@ -156,7 +164,7 @@ const nowContent = processRichText(nowSection?.body);
               tag="p"
               variant="textLG"
               class="mt-4"
-              set:html={marked.parse(paragraph) as string}
+              set:html={paragraph}
             />
           ))}
         </div>
@@ -178,7 +186,7 @@ const nowContent = processRichText(nowSection?.body);
               tag="p"
               variant="textLG"
               class="mt-4"
-              set:html={marked.parse(paragraph) as string}
+              set:html={paragraph}
             />
           ))}
         </div>
@@ -200,7 +208,7 @@ const nowContent = processRichText(nowSection?.body);
               tag="p"
               variant="textLG"
               class="mt-4"
-              set:html={marked.parse(paragraph) as string}
+              set:html={paragraph}
             />
           ))}
         </div>
