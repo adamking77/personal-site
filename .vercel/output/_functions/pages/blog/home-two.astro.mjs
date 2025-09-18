@@ -1,8 +1,8 @@
 import { b as createAstro, c as createComponent, m as maybeRenderHead, e as addAttribute, r as renderComponent, a as renderTemplate, F as Fragment } from '../../chunks/astro/server_Tp03px_G.mjs';
 import 'kleur/colors';
-import { b as $$Text, g as getCollection, $ as $$BaseLayout, a as $$Wrapper } from '../../chunks/BaseLayout_DZYrKpAc.mjs';
+import { b as $$Text, g as getCollection, $ as $$BaseLayout, a as $$Wrapper } from '../../chunks/BaseLayout_BqvvlpEb.mjs';
 import { $ as $$Link } from '../../chunks/Link_BGxdYCbD.mjs';
-import { $ as $$BlogSearch, a as $$SubsCta } from '../../chunks/BlogSearch_C2hRCNBE.mjs';
+import { $ as $$BlogSearch, a as $$SubsCta } from '../../chunks/BlogSearch_CNPx3P3t.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro = createAstro("https://adamking.com");

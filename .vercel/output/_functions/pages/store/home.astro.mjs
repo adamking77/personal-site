@@ -1,6 +1,6 @@
 import { b as createAstro, c as createComponent, m as maybeRenderHead, e as addAttribute, r as renderComponent, a as renderTemplate } from '../../chunks/astro/server_Tp03px_G.mjs';
 import 'kleur/colors';
-import { b as $$Text, g as getCollection, $ as $$BaseLayout, a as $$Wrapper } from '../../chunks/BaseLayout_DZYrKpAc.mjs';
+import { b as $$Text, g as getCollection, $ as $$BaseLayout, a as $$Wrapper } from '../../chunks/BaseLayout_BqvvlpEb.mjs';
 export { renderers } from '../../renderers.mjs';
 
 const $$Astro = createAstro("https://adamking.com");

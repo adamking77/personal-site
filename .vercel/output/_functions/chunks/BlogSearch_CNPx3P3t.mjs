@@ -1,6 +1,6 @@
 import { c as createComponent, m as maybeRenderHead, r as renderComponent, a as renderTemplate, f as defineScriptVars } from './astro/server_Tp03px_G.mjs';
 import 'kleur/colors';
-import { a as $$Wrapper, b as $$Text, g as getCollection } from './BaseLayout_DZYrKpAc.mjs';
+import { a as $$Wrapper, b as $$Text, g as getCollection } from './BaseLayout_BqvvlpEb.mjs';
 import { $ as $$Button } from './Button_DdE7ujd6.mjs';
 import 'clsx';
 

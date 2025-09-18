@@ -83,13 +83,11 @@ const nowContent = processRichText(nowSection?.body);
       const isInViewport = heroRect.top < window.innerHeight && heroRect.bottom > 0;
       
       if (isInViewport) {
-        console.log('Triggering hero load animations');
         // Trigger text animation immediately
         heroText.classList.add('animate-in');
         
         // Trigger image animation after delay
         setTimeout(() => {
-          console.log('Animating hero image');
           heroImage.style.opacity = '0.7';
           heroImage.style.transition = 'opacity 2s cubic-bezier(0.16, 1, 0.3, 1)';
         }, 200);

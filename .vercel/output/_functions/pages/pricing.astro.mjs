@@ -1,6 +1,6 @@
 import { c as createComponent, m as maybeRenderHead, r as renderComponent, a as renderTemplate, e as addAttribute } from '../chunks/astro/server_Tp03px_G.mjs';
 import 'kleur/colors';
-import { a as $$Wrapper, b as $$Text, $ as $$BaseLayout } from '../chunks/BaseLayout_DZYrKpAc.mjs';
+import { a as $$Wrapper, b as $$Text, $ as $$BaseLayout } from '../chunks/BaseLayout_BqvvlpEb.mjs';
 import { $ as $$Button } from '../chunks/Button_DdE7ujd6.mjs';
 export { renderers } from '../renderers.mjs';
 

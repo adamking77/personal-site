@@ -74,6 +74,8 @@ const $$Wrapper = createComponent(($$result, $$props, $$slots) => {
   const variantClasses = {
     // All purpose wrapper
     standard: "max-w-2xl 2xl:max-w-3xl mx-auto px-8 w-full",
+    // Wide wrapper for headers and hero sections
+    wide: "max-w-5xl mx-auto px-8 w-full",
     // Wrapper for prose blocks
     prose: "dark:text-zinc-400 prose-ul:text-zinc-500 prose max-w-3xl pt-0 mx-auto prose-a:text-black dark:prose-a:text-white prose-p:text-zinc-500 dark:prose-p:text-zinc-400 prose-code:text-black dark:prose-code:text-white prose-strong:text-black dark:prose-strong:text-white prose-ol:text-zinc-500 dark:prose-ol:text-zinc-400 prose-headings:text-black dark:prose-headings:text-white prose-headings:text-base text-sm"
   };
@@ -139,7 +141,7 @@ class ImmutableDataStore {
    */
   static async fromModule() {
     try {
-      const data = await import('./_astro_data-layer-content_CTY_FqQc.mjs');
+      const data = await import('./_astro_data-layer-content_L1Ek4L07.mjs');
       if (data.default instanceof Map) {
         return ImmutableDataStore.fromMap(data.default);
       }
@@ -568,7 +570,7 @@ const $$ThemeToggle = createComponent(($$result, $$props, $$slots) => {
 const $$Navigation = createComponent(async ($$result, $$props, $$slots) => {
   const [navigation] = await getCollection("navigation");
   const links = navigation?.data.links || [];
-  return renderTemplate`${maybeRenderHead()}<header class="bg-[var(--color-white)]"> ${renderComponent($$result, "Wrapper", $$Wrapper, { "class": "pt-14" }, { "default": async ($$result2) => renderTemplate` <div class="flex flex-row items-center justify-between w-full"> ${renderComponent($$result2, "Logo", $$Logo, {})} <div class="ml-auto flex items-center gap-4"> ${links.map((link) => renderTemplate`<a${addAttribute(link.url, "href")} class="text-sm hover:underline">${renderComponent($$result2, "Text", $$Text, {}, { "default": async ($$result3) => renderTemplate`${link.text}` })}</a>`)} ${renderComponent($$result2, "ThemeToggle", $$ThemeToggle, {})} </div> </div> ` })} </header>`;
+  return renderTemplate`${maybeRenderHead()}<header class="bg-[var(--color-white)]"> ${renderComponent($$result, "Wrapper", $$Wrapper, { "variant": "wide", "class": "pt-14" }, { "default": async ($$result2) => renderTemplate` <div class="flex flex-row items-center justify-between w-full"> ${renderComponent($$result2, "Logo", $$Logo, {})} <div class="ml-auto flex items-center gap-4"> ${links.map((link) => renderTemplate`<a${addAttribute(link.url, "href")} class="text-sm hover:underline">${renderComponent($$result2, "Text", $$Text, {}, { "default": async ($$result3) => renderTemplate`${link.text}` })}</a>`)} ${renderComponent($$result2, "ThemeToggle", $$ThemeToggle, {})} </div> </div> ` })} </header>`;
 }, "/Users/adamking/claude-code-projects/ak-site/src/components/global/Navigation.astro", void 0);
 
 const $$BaseLayout = createComponent(($$result, $$props, $$slots) => {
