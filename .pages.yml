@@ -1,0 +1,69 @@
+media:
+  - name: blog-images
+    label: Blog Images
+    input: public/images/blog
+    output: /images/blog
+    path: /images/blog
+  - name: avatars
+    label: Avatar Images
+    input: public/images/avatars
+    output: /images/avatars
+    path: /images/avatars
+
+content:
+  - name: posts
+    label: Blog Posts
+    type: collection
+    path: src/content/posts
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: description
+        label: Description
+        type: text
+      - name: pubDate
+        label: Publication Date
+        type: date
+      - name: author
+        label: Author
+        type: string
+      - name: image
+        label: Featured Image
+        type: object
+        fields:
+          - name: url
+            label: Image URL
+            type: string
+          - name: alt
+            label: Alt Text
+            type: string
+      - name: avatar
+        label: Author Avatar
+        type: object
+        fields:
+          - name: url
+            label: Avatar URL
+            type: string
+          - name: alt
+            label: Alt Text
+            type: string
+      - name: tags
+        label: Tags
+        type: list
+
+  - name: homeSections
+    label: Home Page Sections
+    type: collection
+    path: src/content/homeSections
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: order
+        label: Order
+        type: number
+      - name: section
+        label: Section Type
+        type: select
+        options: [hero, about, work, lifestyle, now]
