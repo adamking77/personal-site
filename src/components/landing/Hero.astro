@@ -32,7 +32,7 @@ const nowContent = processRichText(nowSection?.body);
 ---
 
 <script>
-  // Intersection Observer for fade-in animations
+  // Intersection Observer for triggering animations
   const observerOptions = {
     root: null,
     rootMargin: '0px',
@@ -43,15 +43,12 @@ const nowContent = processRichText(nowSection?.body);
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('animate-in');
-        // Fade in hero image after text animation
+        // Trigger hero image animation when text starts
         if (entry.target.classList.contains('hero-slide-in')) {
-          setTimeout(() => {
-            const heroImage = document.getElementById('hero-image');
-            if (heroImage) {
-              heroImage.style.opacity = '0.5';
-              heroImage.style.transform = 'translateX(0)';
-            }
-          }, 200);
+          const heroImage = document.getElementById('hero-image');
+          if (heroImage) {
+            heroImage.classList.add('hero-image-animate');
+          }
         }
         observer.unobserve(entry.target);
       }
@@ -63,70 +60,75 @@ const nowContent = processRichText(nowSection?.body);
     observer.observe(element);
   });
 
-  // Scroll parallax for hero image
+  // Separate parallax scroll for hero image (only after initial animation)
   let ticking = false;
+  let parallaxEnabled = false;
+
   function updateParallax() {
     const heroImage = document.getElementById('hero-image');
-    if (heroImage) {
+    if (heroImage && parallaxEnabled && heroImage.classList.contains('hero-image-animate')) {
       const scrolled = window.pageYOffset;
-      const rate = scrolled * -0.3;
-      heroImage.style.transform = `translateY(${rate}px)`;
+      const rate = scrolled * -0.15;
+      heroImage.style.transform = `translateY(${rate}px) scale(1)`;
+      heroImage.classList.add('parallax-active');
     }
     ticking = false;
   }
 
   function requestTick() {
-    if (!ticking) {
+    if (!ticking && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       requestAnimationFrame(updateParallax);
       ticking = true;
     }
   }
 
-  window.addEventListener('scroll', requestTick);
+  // Enable parallax after initial animations complete
+  setTimeout(() => {
+    parallaxEnabled = true;
+    window.addEventListener('scroll', requestTick);
+  }, 3500); // After hero animations finish
 
-  // Page load animations for hero
+  // Page load animation trigger
   function triggerHeroAnimations() {
     const heroText = document.querySelector('.hero-slide-in');
     const heroImage = document.getElementById('hero-image');
-    
+
     if (heroText && heroImage) {
-      // Check if hero is in viewport on load
       const heroRect = heroText.getBoundingClientRect();
       const isInViewport = heroRect.top < window.innerHeight && heroRect.bottom > 0;
-      
+
       if (isInViewport) {
-        // Trigger text animation immediately
         heroText.classList.add('animate-in');
-        
-        // Trigger image animation after delay
-        setTimeout(() => {
-          heroImage.style.opacity = '0.5';
-          heroImage.style.transition = 'opacity 2s cubic-bezier(0.16, 1, 0.3, 1)';
-        }, 200);
+        heroImage.classList.add('hero-image-animate');
       }
     }
   }
 
-  // Trigger on page load
   window.addEventListener('DOMContentLoaded', triggerHeroAnimations);
 </script>
 
 <style>
-  .animate-in {
-    opacity: 1;
-    transform: translateY(0) translateX(0);
+  /* CSS Custom Properties for coordinated timing */
+  :root {
+    --hero-duration: 2.5s;
+    --hero-delay: 0.8s;
+    --hero-easing: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
+  /* Text Animation */
   .hero-slide-in {
-    transform: translateX(-40px);
-    transition: opacity 2s cubic-bezier(0.16, 1, 0.3, 1), transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity var(--hero-duration) var(--hero-easing),
+                transform var(--hero-duration) var(--hero-easing);
   }
 
-  .hero-bg {
-    transition: transform 0.1s ease-out;
-    will-change: transform;
+  .hero-slide-in.animate-in {
+    opacity: 1;
+    transform: translateX(0);
   }
 
+  /* Hero Image Animation */
   .hero-bg {
     background-image:
       linear-gradient(rgba(48, 104, 151, 0.5), rgba(48, 104, 151, 0.5)),
@@ -135,6 +137,20 @@ const nowContent = processRichText(nowSection?.body);
     background-position: center;
     background-repeat: no-repeat;
     opacity: 0;
+    transform: scale(1.05);
+    transition: opacity var(--hero-duration) var(--hero-easing) var(--hero-delay),
+                transform var(--hero-duration) var(--hero-easing) var(--hero-delay);
+    will-change: transform, opacity;
+  }
+
+  .hero-bg.hero-image-animate {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  /* Separate class for parallax to avoid conflicts */
+  .hero-bg.parallax-active {
+    transition: none;
   }
 
   /* Mobile-first background approach */
@@ -148,7 +164,7 @@ const nowContent = processRichText(nowSection?.body);
   /* Tablet and up - positioned background */
   @media (min-width: 768px) {
     .hero-bg {
-      background-size: 85%;
+      background-size: 70%;
       background-position: center;
     }
 
@@ -166,6 +182,29 @@ const nowContent = processRichText(nowSection?.body);
     /* FORCE mobile section headings to be larger - NO EXCUSES */
     .section-heading {
       font-size: 1.5rem !important; /* 24px - DEFINITELY larger than 18px body */
+    }
+  }
+
+  /* Accessibility: Disable animations for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      --hero-duration: 0.01s;
+      --hero-delay: 0s;
+    }
+
+    .hero-slide-in,
+    .hero-bg {
+      transition: none;
+    }
+
+    .hero-bg {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hero-slide-in {
+      opacity: 1;
+      transform: translateX(0);
     }
   }
 
