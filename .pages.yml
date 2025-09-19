@@ -36,6 +36,10 @@ content:
       - name: tags
         label: Tags
         type: list
+      - name: body
+        label: Content
+        type: rich-text
+        required: true
 
   - name: homeSections
     label: Home Page Sections
