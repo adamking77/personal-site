@@ -41,27 +41,74 @@ content:
         type: rich-text
         required: true
 
-  - name: homeSections
-    label: Home Page Sections
-    type: collection
-    path: src/content/homeSections
-    filename: "{slug}.md"
+  - name: hero-section
+    label: Hero Section
+    type: file
+    path: src/content/homeSections/hero.md
     fields:
       - name: title
         label: Title
         type: string
-        required: false
       - name: order
         label: Order
         type: number
-        required: false
       - name: section
         label: Section Type
-        type: select
-        required: false
-        options:
-          values: [hero, about, work, now]
+        type: string
       - name: body
         label: Content
         type: rich-text
-        required: false
+
+  - name: about-section
+    label: About Section
+    type: file
+    path: src/content/homeSections/about.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: order
+        label: Order
+        type: number
+      - name: section
+        label: Section Type
+        type: string
+      - name: body
+        label: Content
+        type: rich-text
+
+  - name: work-section
+    label: Work Section
+    type: file
+    path: src/content/homeSections/work.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: order
+        label: Order
+        type: number
+      - name: section
+        label: Section Type
+        type: string
+      - name: body
+        label: Content
+        type: rich-text
+
+  - name: now-section
+    label: Now Section
+    type: file
+    path: src/content/homeSections/now.md
+    fields:
+      - name: title
+        label: Title
+        type: string
+      - name: order
+        label: Order
+        type: number
+      - name: section
+        label: Section Type
+        type: string
+      - name: body
+        label: Content
+        type: rich-text
