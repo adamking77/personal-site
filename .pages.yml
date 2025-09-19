@@ -51,4 +51,12 @@ content:
       - name: section
         label: Section Type
         type: select
-        options: [hero, about, work, lifestyle, now]
+        options:
+          - value: hero
+            label: Hero
+          - value: about
+            label: About
+          - value: work
+            label: Work
+          - value: now
+            label: Now

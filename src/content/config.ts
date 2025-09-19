@@ -5,7 +5,7 @@ const homeSections = defineCollection({
   schema: z.object({
     title: z.string(),
     order: z.number(),
-    section: z.enum(["hero", "about", "work", "lifestyle", "now"]),
+    section: z.enum(["hero", "about", "work", "now"]),
   }),
 });
 
