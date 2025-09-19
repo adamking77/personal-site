@@ -3,20 +3,60 @@ const { title, url, description, pubDate, author, image } = Astro.props;
 import Text from "@/components/fundations/elements/Text.astro";
 ---
 
-<a href={url} title={title}>
-  <div class="sm:flex items-center gap-8">
+<style>
+  .blog-card {
+    transition: all 0.3s ease-out;
+    border: 1px solid transparent;
+  }
+
+  .blog-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: scale(1.02);
+  }
+
+  :global(.dark) .blog-card:hover {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+  }
+
+  .blog-image {
+    transition: brightness 0.3s ease-out;
+  }
+
+  .blog-card:hover .blog-image {
+    brightness: 1.05;
+  }
+
+  .dark .blog-card:hover .blog-image {
+    brightness: 1.1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .blog-card,
+    .blog-image {
+      transition: none;
+    }
+
+    .blog-card:hover {
+      transform: none;
+    }
+  }
+</style>
+
+<a href={url} title={title} class="block">
+  <div class="blog-card sm:flex items-center gap-8 p-4 -m-4 rounded-xl">
     <div class="mb-4 flex-shrink-0 sm:mb-0 orderlast">
       <img
         src={image}
         alt={title}
-        class="size-16 lg:size-28 object-cover rounded-lg dark:opacity-70"
+        class="blog-image size-16 lg:size-28 object-cover rounded-lg dark:opacity-70"
       />
     </div>
     <div>
       <Text
         tag="h4"
         variant="textBase"
-        class="text-black dark:text-white mt-1 font-medium group-hover:text-black/70 dark:group-hover:text-white/70"
+        class="text-black dark:text-white mt-1 font-medium group-hover:text-black/70 dark:group-hover:text-white/70 transition-colors duration-300 ease-out"
       >
         {title}
       </Text>

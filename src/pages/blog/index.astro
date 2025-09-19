@@ -21,10 +21,62 @@ const sortedTags = allTags.sort((a, b) => a.localeCompare(b));
       font-size: 1.5rem !important; /* 24px - larger than 18px body text */
     }
   }
+
+  /* Page load animations */
+  .fade-in {
+    animation: fadeIn 0.6s ease-out;
+  }
+
+  .fade-in-delay {
+    animation: fadeIn 0.8s ease-out;
+  }
+
+  .fade-in-delay-2 {
+    animation: fadeIn 1s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Enhanced tag transitions */
+  .tag-container a {
+    transition: all 0.3s ease-out;
+  }
+
+  .tag-container a:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+
+  .dark .tag-container a:hover {
+    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.03);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in,
+    .fade-in-delay,
+    .fade-in-delay-2,
+    .tag-container a {
+      animation: none;
+      transition: none;
+    }
+
+    .tag-container a:hover {
+      transform: none;
+    }
+  }
 </style>
 
 <BaseLayout>
-  <section class="mt-12 md:mt-16 lg:mt-20 mb-4 md:mb-6 lg:mb-8">
+  <section class="mt-12 md:mt-16 lg:mt-20 mb-4 md:mb-6 lg:mb-8 fade-in">
     <Wrapper variant="standard" class="py-8 md:py-12 lg:py-16 xl:py-24 px-6 md:px-8">
       <Text
         tag="h1"
@@ -36,10 +88,10 @@ const sortedTags = allTags.sort((a, b) => a.localeCompare(b));
     </Wrapper>
   </section>
 
-  <section>
+  <section class="fade-in-delay">
     <Wrapper variant="standard" class="py-4 md:py-6 lg:py-8 xl:py-12 px-6 md:px-8">
       <div
-        class="mt-8 flex flex-wrap gap-1 "
+        class="mt-8 flex flex-wrap gap-1 tag-container"
       >
         {
           sortedTags.map((tag) => (
@@ -52,7 +104,7 @@ const sortedTags = allTags.sort((a, b) => a.localeCompare(b));
         }
       </div>
       <div
-        class="flex flex-col gap-8 mt-8 border-t dark:border-white/10 border-black/10 pt-4"
+        class="flex flex-col gap-12 mt-8 border-t dark:border-white/10 border-black/10 pt-4 fade-in-delay-2"
       >
         {
           allPosts
