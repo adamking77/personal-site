@@ -4,4 +4,4 @@ order: 1
 section: "hero"
 ---
 
-Defiant Generalist in a World of Unrealized Specialists
+Defiant Generalist In A World Of Unrealized Specialists
