@@ -1,0 +1,77 @@
+---
+// Fundations
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import Text from "@/components/fundations/elements/Text.astro";
+import Link from "@/components/fundations/elements/Link.astro";
+import Wrapper from "@/components/fundations/containers/Wrapper.astro";
+// Sections
+import SubsCta from "@/components/forms/SubsCta.astro";
+import EntriesTwo from "@/components/blog/EntriesTwo.astro";
+// Import the collection of all blog posts
+import { getCollection } from "astro:content";
+const allPosts = await getCollection("posts");
+// Collect all unique tags
+const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags || []))];
+const sortedTags = allTags.sort((a, b) => a.localeCompare(b));
+---
+
+<style>
+  /* Mobile heading sizes - matching homepage pattern */
+  @media (max-width: 767px) {
+    .blog-title {
+      font-size: 1.5rem !important; /* 24px - larger than 18px body text */
+    }
+  }
+</style>
+
+<BaseLayout>
+  <section class="mt-12 md:mt-16 lg:mt-20 mb-4 md:mb-6 lg:mb-8">
+    <Wrapper variant="standard" class="py-8 md:py-12 lg:py-16 xl:py-24 px-6 md:px-8">
+      <Text
+        tag="h1"
+        variant="displayXS"
+        class="text-black dark:text-white font-medium blog-title"
+      >
+        Insights And Resources
+      </Text>
+    </Wrapper>
+  </section>
+
+  <section>
+    <Wrapper variant="standard" class="py-4 md:py-6 lg:py-8 xl:py-12 px-6 md:px-8">
+      <div
+        class="mt-8 flex flex-wrap gap-1 "
+      >
+        {
+          sortedTags.map((tag) => (
+            <>
+              <Link size="small" variant="secondary"  title={tag} aria-label={tag} href={`/blog/tags/${tag}`}>
+                {tag}
+              </Link>
+            </>
+          ))
+        }
+      </div>
+      <div
+        class="flex flex-col gap-8 mt-8 border-t dark:border-white/10 border-black/10 pt-4"
+      >
+        {
+          allPosts
+            .slice()
+            .map((post) => (
+              <EntriesTwo
+                url={"/blog/posts/" + post.slug}
+                title={post.data.title}
+                description={post.data.description}
+                alt={post.data.title}
+                pubDate={post.data.pubDate.toString().slice(0, 10)}
+                author={post.data.author}
+                image={post.data.image.url}
+              />
+            ))
+        }
+      </div>
+    </Wrapper>
+  </section>
+  <SubsCta />
+</BaseLayout>
