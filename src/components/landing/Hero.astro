@@ -163,7 +163,8 @@ const nowContent = processRichText(nowSection?.body);
       font-size: 1.875rem !important; /* text-3xl equivalent */
     }
 
-    .section-heading {
+    .section-heading,
+    .section-heading h1 {
       font-size: 1.25rem !important; /* text-xl equivalent */
     }
   }
@@ -190,6 +191,7 @@ const nowContent = processRichText(nowSection?.body);
         tag="h1"
         variant="displayXS"
         class="font-medium mb-4 section-heading"
+        style="font-size: 1.25rem;"
       >
         {aboutSection?.data.title}
       </Text>
@@ -212,6 +214,7 @@ const nowContent = processRichText(nowSection?.body);
         tag="h1"
         variant="displayXS"
         class="font-medium mb-4 section-heading"
+        style="font-size: 1.25rem;"
       >
         {workSection?.data.title}
       </Text>
@@ -234,6 +237,7 @@ const nowContent = processRichText(nowSection?.body);
         tag="h1"
         variant="displayXS"
         class="font-medium mb-4 section-heading"
+        style="font-size: 1.25rem;"
       >
         {nowSection?.data.title}
       </Text>
