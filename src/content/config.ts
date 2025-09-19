@@ -81,10 +81,6 @@ const postsCollection = defineCollection({
       url: z.string(),
       alt: z.string(),
     }),
-    avatar: z.object({
-      url: z.string(),
-      alt: z.string(),
-    }),
     tags: z.array(z.string()),
   }),
 });

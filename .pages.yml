@@ -4,11 +4,6 @@ media:
     input: public/images/blog
     output: /images/blog
     path: /images/blog
-  - name: avatars
-    label: Avatar Images
-    input: public/images/avatars
-    output: /images/avatars
-    path: /images/avatars
 
 content:
   - name: posts
@@ -34,16 +29,6 @@ content:
         fields:
           - name: url
             label: Image URL
-            type: string
-          - name: alt
-            label: Alt Text
-            type: string
-      - name: avatar
-        label: Author Avatar
-        type: object
-        fields:
-          - name: url
-            label: Avatar URL
             type: string
           - name: alt
             label: Alt Text
