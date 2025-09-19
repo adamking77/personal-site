@@ -45,6 +45,7 @@ content:
     label: Home Page Sections
     type: collection
     path: src/content/homeSections
+    filename: "{slug}.md"
     fields:
       - name: title
         label: Title
@@ -60,3 +61,7 @@ content:
         required: true
         options:
           values: [hero, about, work, now]
+      - name: body
+        label: Content
+        type: rich-text
+        required: true
