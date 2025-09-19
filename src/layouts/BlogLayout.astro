@@ -14,36 +14,49 @@ const allPosts = allPostsUnsorted.sort(
 );
 ---
 
+<style>
+  /* Mobile heading sizes - matching homepage pattern */
+  @media (max-width: 767px) {
+    .post-title {
+      font-size: 1.75rem !important; /* 28px - larger post title on mobile */
+    }
+
+    .section-heading {
+      font-size: 1.5rem !important; /* 24px - larger than 18px body text */
+    }
+  }
+</style>
+
 <BaseLayout>
-  <section>
-    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:py-54">
+  <section class="mt-12 md:mt-16 lg:mt-20 mb-8 md:mb-12 lg:mb-16">
+    <Wrapper variant="standard" class="py-8 md:py-12 lg:py-16 xl:py-24 px-6 md:px-8">
       <Text
         tag="h1"
-        variant="textLG"
-        class="text-black dark:text-white font-medium"
+        variant="displayXS"
+        class="text-black dark:text-white font-medium post-title"
       >
         {frontmatter.title}
       </Text>
       <Text
         tag="p"
         variant="textSM"
-        class="text-zinc-500 text-balance mt-4 dark:text-zinc-400"
+        class="text-zinc-500 text-balance mt-6 dark:text-zinc-400"
       >
         {frontmatter.description}
       </Text>
 
       <img
-        class="object-cover aspect-[16/9] rounded-xl mt-2"
+        class="object-cover aspect-[16/9] rounded-xl mt-8"
         src={frontmatter.image.url}
         alt={frontmatter.image.url}
       />
     </Wrapper>
   </section>
   <section>
-    <Wrapper variant="standard" class="py-12">
-      <div class="border-t dark:border-white/10 border-black/10 pt-2">
+    <Wrapper variant="standard" class="py-8 md:py-12 lg:py-16 xl:py-24 px-6 md:px-8">
+      <div class="border-t dark:border-white/10 border-black/10 pt-6 mt-8">
         <div
-          class="flex gap-4 flex-col md:flex-row items-center justify-between"
+          class="flex gap-4 flex-col md:flex-row items-center justify-between mb-8"
         >
           <div class="flex items-center gap-x-3">
             <img
@@ -88,16 +101,16 @@ const allPosts = allPostsUnsorted.sort(
     </Wrapper>
   </section>
   <section>
-    <Wrapper variant="standard" class="pt-12 lg:py-32 xl:pt-74 xl:pb-50">
+    <Wrapper variant="standard" class="py-8 md:py-12 lg:py-16 xl:py-24 px-6 md:px-8">
       <Text
         tag="h3"
-        variant="textBase"
-        class="text-black dark:text-white font-medium mb-4"
+        variant="displayXS"
+        class="text-black dark:text-white font-medium mb-4 section-heading"
       >
         Latest blog posts
       </Text>
       <div
-        class="gap-2 sm:flex sm:items-center sm:justify-between border-t dark:border-white/10 border-black/10 pt-2 mt-2"
+        class="gap-2 sm:flex sm:items-center sm:justify-between border-t dark:border-white/10 border-black/10 pt-4 mt-4"
       >
         <div class="">
           <Text
