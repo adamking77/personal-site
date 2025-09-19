@@ -10,6 +10,7 @@ a:not(.nav-title) {
 :root {
   /* Typography */
   --font-sans: 'Lexend', sans-serif;
+  --font-hero: 'Lexend Exa', sans-serif;
 
   /* colors */
   --color-white: #ededed;
@@ -33,6 +34,10 @@ a:not(.nav-title) {
 @layer components {
   .container {
     @apply mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl;
+  }
+
+  .font-hero {
+    font-family: var(--font-hero);
   }
 }
 
