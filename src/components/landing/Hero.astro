@@ -157,15 +157,18 @@ const nowContent = processRichText(nowSection?.body);
     }
   }
 
-  /* Mobile heading sizes with proper specificity */
+  /* Mobile heading sizes - now using displaySM variant naturally */
   @media (max-width: 767px) {
     .hero-slide-in {
       font-size: 1.875rem !important; /* text-3xl equivalent */
     }
+    /* displaySM variant now provides text-xl (20px) on mobile automatically */
+  }
 
-    .section-heading,
-    .section-heading h1 {
-      font-size: 1.25rem !important; /* text-xl equivalent */
+  /* Scale tablet/desktop section headings back to original displayXS size */
+  @media (min-width: 768px) {
+    .section-heading {
+      font-size: 1.875rem !important; /* text-3xl - original displayXS desktop size */
     }
   }
 </style>
@@ -176,7 +179,7 @@ const nowContent = processRichText(nowSection?.body);
       <div class="w-full md:w-4/5 lg:w-3/5 z-10 relative px-4 md:px-0">
         <Text
           tag="h1"
-          variant="displayXS"
+          variant="displaySM"
           class="font-medium animate-on-scroll hero-slide-in"
           style="line-height: 1.3;"
           set:html={heroLines.join('<br />')}
@@ -189,9 +192,8 @@ const nowContent = processRichText(nowSection?.body);
     <div class="animate-on-scroll">
       <Text
         tag="h1"
-        variant="displayXS"
+        variant="displaySM"
         class="font-medium mb-4 section-heading"
-        style="font-size: 1.25rem;"
       >
         {aboutSection?.data.title}
       </Text>
@@ -212,9 +214,8 @@ const nowContent = processRichText(nowSection?.body);
     <div class="animate-on-scroll delay-200 mt-24 md:mt-32 lg:mt-48">
       <Text
         tag="h1"
-        variant="displayXS"
+        variant="displaySM"
         class="font-medium mb-4 section-heading"
-        style="font-size: 1.25rem;"
       >
         {workSection?.data.title}
       </Text>
@@ -235,9 +236,8 @@ const nowContent = processRichText(nowSection?.body);
     <div class="animate-on-scroll delay-400 mt-24 md:mt-32 lg:mt-48">
       <Text
         tag="h1"
-        variant="displayXS"
+        variant="displaySM"
         class="font-medium mb-4 section-heading"
-        style="font-size: 1.25rem;"
       >
         {nowSection?.data.title}
       </Text>
