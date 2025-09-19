@@ -45,18 +45,14 @@ content:
       - name: title
         label: Title
         type: string
+        required: true
       - name: order
         label: Order
         type: number
+        required: true
       - name: section
         label: Section Type
         type: select
+        required: true
         options:
-          - value: hero
-            label: Hero
-          - value: about
-            label: About
-          - value: work
-            label: Work
-          - value: now
-            label: Now
+          values: [hero, about, work, now]
