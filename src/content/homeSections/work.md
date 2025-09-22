@@ -1,9 +1,12 @@
 ---
-title: "Work"
+title: Work
 order: 3
-section: "work"
+section: work
 ---
+I run GenZen, a company dedicated to restoring human agency in this age of systematic exploitation.
 
-At [GenZen Solutions](https://genzen.solutions), I serve as Chief Strategist for cultural innovators facing critical threats. I specialize in strategic communication design, power preservation, and pattern recognition systems that identify sophisticated exploitation before it manifests.
+As founder and chief strategist, I discover and design solutions for overlooked and underserved groups who remain frequent targets of exploitation.
 
-For those who find their authentic power under systematic attack in high-stakes situations, I provide strategic protection through [GenZen Pro](https://genzen.pro). I design communication architectures that ensure clients maintain control precisely when others are attempting to seize it, transforming vulnerabilities into unprecedented advantage.
+We also release products and resources that further your autonomy in your current pursuits.
+
+Autonomy Intelligence is the core framework GenZen applies to every opportunity and initiative. It's about understanding how power gets systematically removed from individuals, organizations, and cultures, then engineering the restoration of that power.
