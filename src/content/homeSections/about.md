@@ -3,8 +3,10 @@ title: About
 order: 2
 section: about
 ---
-While the world pushes for narrow specialization, I've embraced the power of being a Generalized Specialist. This allows me to spot connections others miss and create solutions that wouldn't emerge from a single discipline.
+While this modern age keeps pushing us into increasingly narrowed specialization, I embrace the power of being a Generalized Specialist.
 
-Generalized Specialists transform problems into opportunities by bringing together disparate elements most would never think to combine.  
-  
-Since 2017, I've been slow-traveling across 19 countries so far, absorbing cultural perspectives that inform how I help clients solve their most complex challenges.
+A Generalized Specialist builds depth in a central area of expertise, while incorporating functional and useful knowledge and resources from other disciplines.
+
+This allows me to spot connections others miss and create solutions that wouldn't emerge from a narrowly-focused discipline.
+
+Generalized Specialists are radical solutionists who transform problems into opportunities by bringing together these seemingly disparate elements most would never think to combine.
