@@ -1,0 +1,89 @@
+---
+---
+
+<section id="work" class="py-24 md:py-32 px-6 w-full max-w-6xl mx-auto">
+
+  <!-- Section label -->
+  <div class="flex items-center gap-5 mb-16 md:mb-20 work-label opacity-0">
+    <span class="font-mono text-[17px] tracking-[0.18em] uppercase text-theme-muted whitespace-nowrap">02 / Work</span>
+    <div class="work-rule flex-1 h-px" style="background-color: var(--border-color); transform-origin: left center; transform: scaleX(0);"></div>
+  </div>
+
+  <!-- Initiative list -->
+  <div>
+
+    <!-- GenZen -->
+    <div class="work-item opacity-0 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-3 lg:gap-16 py-9" style="border-bottom: 1px solid var(--border-color);">
+      <div class="flex items-start gap-5">
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-accent">01</span>
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-theme-muted">Company</span>
+      </div>
+      <div>
+        <h2 class="font-sans font-light text-[1.6rem] md:text-[2rem] leading-[1.2] tracking-[-0.025em] text-theme mb-5" style="font-optical-sizing: auto;">
+          GenZen
+        </h2>
+        <div class="space-y-4 max-w-lg">
+          <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme-muted">
+            I run GenZen, a company dedicated to restoring human agency in this age of systematic exploitation.
+          </p>
+          <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme-muted">
+            As founder and chief strategist, I discover and design solutions for overlooked and underserved groups who remain frequent targets of exploitation.
+          </p>
+          <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme-muted">
+            We also release products and resources that further your autonomy in your current pursuits.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Autonomy Intelligence -->
+    <div class="work-item opacity-0 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-3 lg:gap-16 py-9">
+      <div class="flex items-start gap-5">
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-accent">02</span>
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-theme-muted">Framework</span>
+      </div>
+      <div>
+        <h2 class="font-sans font-light text-[1.6rem] md:text-[2rem] leading-[1.2] tracking-[-0.025em] text-theme mb-5" style="font-optical-sizing: auto;">
+          Autonomy Intelligence
+        </h2>
+        <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme-muted max-w-lg">
+          Understanding how power gets systematically removed from individuals, organizations, and cultures, then engineering the restoration of that power. This is the framework GenZen applies to every opportunity and initiative.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // Label fade + rule line draw
+    const labelTl = gsap.timeline({
+      scrollTrigger: { trigger: '#work', start: 'top 80%' }
+    });
+    labelTl
+      .to('.work-label', { opacity: 1, duration: 0.6, ease: 'power3.out' })
+      .to('.work-rule', { scaleX: 1, duration: 1.1, ease: 'power3.inOut' }, '-=0.3');
+
+    // Items slide up and fade in
+    const items = gsap.utils.toArray('.work-item') as HTMLElement[];
+    items.forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 85%' }
+        }
+      );
+    });
+  });
+</script>

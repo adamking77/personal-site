@@ -1,0 +1,68 @@
+---
+---
+
+<section id="about" class="py-24 md:py-32 px-6 w-full max-w-6xl mx-auto">
+
+  <!-- Section label -->
+  <div class="flex items-center gap-5 mb-16 md:mb-20 about-label opacity-0">
+    <span class="font-mono text-[17px] tracking-[0.18em] uppercase text-theme-muted whitespace-nowrap">01 / About</span>
+    <div class="about-rule flex-1 h-px" style="background-color: var(--border-color); transform-origin: left center; transform: scaleX(0);"></div>
+  </div>
+
+  <!-- Editorial lede — full width, large -->
+  <div class="mb-16 lg:mb-20">
+    <p class="font-sans font-light text-[1.6rem] md:text-[2rem] leading-[1.2] tracking-[-0.025em] text-theme max-w-4xl reveal-text opacity-0" style="font-optical-sizing: auto;">
+      Modern culture keeps pushing us towards narrow specialization. I embrace being a <em>Generalized Specialist</em> instead.
+    </p>
+  </div>
+
+  <!-- Body copy — offset right -->
+  <div class="lg:ml-[34%] max-w-xl space-y-7">
+
+    <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme-muted reveal-text opacity-0">
+      A Generalized Specialist builds depth in a central area of expertise while incorporating knowledge and resources from other disciplines.
+    </p>
+
+    <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme-muted reveal-text opacity-0">
+      Generalized Specialists are <span class="text-theme font-normal">Solutionists</span> to the core. We transform problems into opportunities by bringing together disparate elements most would never think to combine.
+    </p>
+
+    <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme-muted reveal-text opacity-0">
+      This allows me to spot connections others miss and create solutions that wouldn't emerge from narrowly-focused disciplines.
+    </p>
+
+  </div>
+
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // Label fade + rule line draw
+    const labelTl = gsap.timeline({
+      scrollTrigger: { trigger: '#about', start: 'top 80%' }
+    });
+    labelTl
+      .to('.about-label', { opacity: 1, duration: 0.6, ease: 'power3.out' })
+      .to('.about-rule', { scaleX: 1, duration: 1.1, ease: 'power3.inOut' }, '-=0.3');
+
+    // Text reveal with upward slide
+    const textEls = gsap.utils.toArray('.reveal-text') as HTMLElement[];
+    textEls.forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 22 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%' }
+        }
+      );
+    });
+  });
+</script>

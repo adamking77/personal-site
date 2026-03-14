@@ -1,0 +1,88 @@
+---
+---
+
+<section id="hero" class="relative w-full min-h-screen grid grid-cols-1 lg:grid-cols-[44%_56%] overflow-hidden">
+
+  <!-- Photo Panel — left on desktop, top on mobile -->
+  <div class="relative w-full h-[90vw] max-h-[520px] lg:max-h-none lg:h-screen overflow-hidden">
+    <img
+      src="/ak-portrait.png"
+      alt="Adam King"
+      class="hero-photo w-full h-full object-cover object-[50%_12%] contrast-110"
+    />
+    <!-- Subtle blue duotone wash -->
+    <div class="absolute inset-0 pointer-events-none" style="background-color: var(--accent); mix-blend-mode: color; opacity: 0.07;"></div>
+    <!-- Gradient fade into bg at bottom on desktop -->
+    <div class="hidden lg:block absolute bottom-0 left-0 right-0 h-24 pointer-events-none" style="background: linear-gradient(to top, var(--bg-color), transparent);"></div>
+  </div>
+
+  <!-- Typography Panel — right on desktop, bottom on mobile -->
+  <div class="relative flex flex-col justify-between px-8 md:px-10 lg:px-14 xl:px-16 py-8 lg:py-10 bg-theme lg:h-screen">
+
+    <!-- Top metadata row -->
+    <div class="hero-meta opacity-0 pt-6 md:pt-10 lg:pt-20">
+      <div class="flex items-center justify-between mb-3">
+        <span class="font-mono text-[11px] tracking-[0.24em] uppercase text-theme-muted">Founder · Slow Traveler · Taste Maker</span>
+      </div>
+      <div class="w-full h-px" style="background-color: var(--border-color);"></div>
+    </div>
+
+    <!-- Main heading block -->
+    <div class="flex-1 flex flex-col justify-center py-8 lg:py-6">
+      <div class="overflow-hidden">
+        <h1 class="hero-line font-sans font-light text-[3.1rem] sm:text-[3.8rem] md:text-[4.5rem] lg:text-[5.2rem] xl:text-[6.5rem] tracking-[-0.04em] leading-[0.87] text-theme opacity-0 translate-y-full" style="font-optical-sizing: auto;">
+          Defiant
+        </h1>
+      </div>
+      <div class="overflow-hidden mt-1">
+        <h1 class="hero-line font-sans font-light text-[3.4rem] md:text-[4.5rem] lg:text-[5.2rem] xl:text-[6.5rem] tracking-[-0.04em] leading-[0.87] text-theme opacity-0 translate-y-full lg:ml-8" style="font-optical-sizing: auto;">
+          Generalist
+        </h1>
+      </div>
+    </div>
+
+    <!-- Bottom rule + descriptor -->
+    <div class="hero-bottom opacity-0 pb-6 lg:pb-0">
+      <div class="w-full h-px mb-5" style="background-color: var(--border-color);"></div>
+      <div class="flex items-end justify-between">
+        <p class="font-mono text-[13px] sm:text-[15px] md:text-[17px] tracking-[0.18em] uppercase text-theme-muted leading-[1.8]">
+          In a world of<br/>unrealized specialists.
+        </p>
+        <span class="font-mono text-[13px] sm:text-[15px] md:text-[17px] tracking-[0.18em] uppercase text-theme-muted">↓</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+    // Photo parallax — portrait drifts as hero scrolls out
+    gsap.to('.hero-photo', {
+      y: 80,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '#hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+      }
+    });
+
+    tl.to('.hero-meta', { opacity: 1, duration: 0.8, delay: 0.15 })
+      .to('.hero-line', {
+        y: 0,
+        opacity: 1,
+        duration: 1.4,
+        stagger: 0.12,
+      }, "-=0.4")
+      .to('.hero-bottom', { opacity: 1, duration: 0.9 }, "-=0.9");
+  });
+</script>

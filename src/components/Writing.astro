@@ -1,0 +1,98 @@
+---
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('writing');
+const posts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
+---
+
+<section id="writing" class="py-24 md:py-32 px-6 w-full max-w-6xl mx-auto">
+
+  <!-- Section label -->
+  <div class="flex items-center gap-5 mb-16 md:mb-20 writing-label opacity-0">
+    <span class="font-mono text-[17px] tracking-[0.18em] uppercase text-theme-muted whitespace-nowrap">03 / Writing</span>
+    <div class="writing-rule flex-1 h-px" style="background-color: var(--border-color); transform-origin: left center; transform: scaleX(0);"></div>
+  </div>
+
+  <!-- Post list -->
+  <div>
+    {posts.map((post, i) => (
+      <a
+        href={`/writing/${post.id}`}
+        class="writing-item opacity-0 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-3 lg:gap-16 py-9 block group"
+        style={i < posts.length - 1 ? "border-bottom: 1px solid var(--border-color);" : ""}
+      >
+        <div class="flex items-start gap-5">
+          <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-accent">
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-theme-muted">
+            {post.data.category ?? 'Resource'}
+          </span>
+        </div>
+        <div>
+          <h2 class="font-sans font-light text-[1.6rem] md:text-[2rem] leading-[1.2] tracking-[-0.025em] text-theme mb-4 group-hover:text-accent transition-colors duration-300" style="font-optical-sizing: auto;">
+            {post.data.title}
+          </h2>
+          <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme-muted max-w-lg">
+            {post.data.description}
+          </p>
+          <span class="inline-block mt-5 font-mono text-[11px] tracking-[0.2em] uppercase text-accent group-hover:tracking-[0.3em] transition-all duration-300">
+            Read →
+          </span>
+        </div>
+      </a>
+    ))}
+  </div>
+
+  <!-- View all link -->
+  {allPosts.length > 3 && (
+    <div class="mt-10 writing-footer opacity-0">
+      <a href="/writing" class="font-mono text-[11px] tracking-[0.2em] uppercase text-theme-muted hover:text-theme transition-colors duration-200">
+        View all writing →
+      </a>
+    </div>
+  )}
+
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const labelTl = gsap.timeline({
+      scrollTrigger: { trigger: '#writing', start: 'top 80%' }
+    });
+    labelTl
+      .to('.writing-label', { opacity: 1, duration: 0.6, ease: 'power3.out' })
+      .to('.writing-rule', { scaleX: 1, duration: 1.1, ease: 'power3.inOut' }, '-=0.3');
+
+    const items = gsap.utils.toArray('.writing-item') as HTMLElement[];
+    items.forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 85%' }
+        }
+      );
+    });
+
+    const footer = document.querySelector('.writing-footer');
+    if (footer) {
+      gsap.fromTo(footer,
+        { opacity: 0, y: 16 },
+        { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out',
+          scrollTrigger: { trigger: footer, start: 'top 90%' }
+        }
+      );
+    }
+  });
+</script>

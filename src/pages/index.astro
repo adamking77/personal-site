@@ -1,0 +1,30 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Work from '../components/Work.astro';
+import Writing from '../components/Writing.astro';
+import Now from '../components/Now.astro';
+import Footer from '../components/Footer.astro';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+---
+
+<Layout title="Adam King — Generalized Specialist">
+	<Navigation />
+	<main class="w-full relative z-10">
+		<Hero />
+		<About />
+		<Work />
+		<Writing />
+		<Now />
+	</main>
+	<Footer />
+
+	<!-- Ambient glow -->
+	<div class="fixed top-0 left-0 w-full h-screen pointer-events-none z-0 overflow-hidden flex justify-center items-center opacity-25 dark:opacity-20">
+		<div class="absolute w-[500px] h-[500px] rounded-full blur-[140px]" style="background-color: color-mix(in srgb, var(--accent) 15%, transparent);"></div>
+	</div>
+</Layout>

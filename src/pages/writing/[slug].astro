@@ -1,0 +1,81 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navigation from '../../components/Navigation.astro';
+import Footer from '../../components/Footer.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('writing');
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+---
+
+<Layout title={`${post.data.title} — Adam King`}>
+  <Navigation />
+  <main class="w-full relative z-10 pt-24 md:pt-32">
+
+    <!-- Post header -->
+    <header class="px-6 w-full max-w-6xl mx-auto py-16 md:py-20 post-header opacity-0">
+
+      <!-- Breadcrumb -->
+      <div class="mb-12">
+        <a href="/writing" class="font-mono text-[11px] tracking-[0.2em] uppercase text-theme-muted hover:text-theme transition-colors duration-200">
+          ← Writing
+        </a>
+      </div>
+
+      <!-- Meta row -->
+      <div class="flex items-center gap-5 mb-10">
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-accent">
+          {post.data.category ?? 'Resource'}
+        </span>
+      </div>
+
+      <!-- Title -->
+      <h1 class="font-sans font-light text-[2rem] md:text-[2.75rem] lg:text-[3.5rem] leading-[1.1] tracking-[-0.03em] text-theme max-w-4xl mb-8" style="font-optical-sizing: auto;">
+        {post.data.title}
+      </h1>
+
+      <!-- Description lede -->
+      <p class="font-sans font-light text-[1.1rem] md:text-[1.25rem] leading-[1.6] tracking-[-0.01em] text-theme-muted max-w-2xl">
+        {post.data.description}
+      </p>
+
+      <!-- Divider -->
+      <div class="mt-12 w-full h-px post-rule" style="background-color: var(--border-color); transform-origin: left center; transform: scaleX(0);"></div>
+
+    </header>
+
+    <!-- Post body -->
+    <article class="px-6 w-full max-w-6xl mx-auto pb-24 md:pb-32 post-body opacity-0">
+      <div class="lg:ml-[20%] max-w-[68ch] prose">
+        <Content />
+      </div>
+    </article>
+
+  </main>
+  <Footer />
+
+  <!-- Ambient glow -->
+  <div class="fixed top-0 left-0 w-full h-screen pointer-events-none z-0 overflow-hidden flex justify-center items-center opacity-25 dark:opacity-20">
+    <div class="absolute w-[500px] h-[500px] rounded-full blur-[140px]" style="background-color: color-mix(in srgb, var(--accent) 15%, transparent);"></div>
+  </div>
+</Layout>
+
+<script>
+  import gsap from 'gsap';
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const tl = gsap.timeline({ delay: 0.1 });
+    tl.to('.post-header', { opacity: 1, duration: 0.8, ease: 'power3.out' })
+      .to('.post-rule', { scaleX: 1, duration: 1.1, ease: 'power3.inOut' }, '-=0.4')
+      .to('.post-body', { opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+  });
+</script>

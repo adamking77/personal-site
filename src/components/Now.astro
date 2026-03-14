@@ -1,0 +1,82 @@
+---
+---
+
+<section id="now" class="py-24 md:py-32 px-6 w-full max-w-6xl mx-auto mb-8">
+
+  <!-- Section label -->
+  <div class="flex items-center gap-5 mb-16 md:mb-20 now-label opacity-0">
+    <span class="font-mono text-[17px] tracking-[0.18em] uppercase text-theme-muted whitespace-nowrap">04 / Now</span>
+    <div class="now-rule flex-1 h-px" style="background-color: var(--border-color); transform-origin: left center; transform: scaleX(0);"></div>
+  </div>
+
+  <!-- Item list -->
+  <div>
+
+    <!-- Life -->
+    <div class="now-item opacity-0 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-3 lg:gap-16 py-9" style="border-bottom: 1px solid var(--border-color);">
+      <div class="flex items-start gap-5">
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-accent">01</span>
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-theme-muted">Life</span>
+      </div>
+      <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme">
+        Since 2017, I've been slow-traveling across <span class="text-accent">19 countries</span> so far, absorbing cultural perspectives and observing life through the lens of the perpetual foreigner.
+      </p>
+    </div>
+
+    <!-- Project -->
+    <div class="now-item opacity-0 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-3 lg:gap-16 py-9" style="border-bottom: 1px solid var(--border-color);">
+      <div class="flex items-start gap-5">
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-accent">02</span>
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-theme-muted">Project</span>
+      </div>
+      <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme">
+        Developing the <span class="text-theme font-normal">A.I. powered C.O.O.</span>
+      </p>
+    </div>
+
+    <!-- Skill -->
+    <div class="now-item opacity-0 grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-3 lg:gap-16 py-9">
+      <div class="flex items-start gap-5">
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-accent">03</span>
+        <span class="font-mono text-[11px] tracking-[0.2em] uppercase text-theme-muted">Skill</span>
+      </div>
+      <p class="text-[0.95rem] md:text-base font-light leading-[1.75] text-theme">
+        Learning and testing A.I. assisted coding — discovering what's now possible to build when coding is no longer the barrier.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  window.addEventListener('DOMContentLoaded', () => {
+    // Label fade + rule line draw
+    const labelTl = gsap.timeline({
+      scrollTrigger: { trigger: '#now', start: 'top 80%' }
+    });
+    labelTl
+      .to('.now-label', { opacity: 1, duration: 0.6, ease: 'power3.out' })
+      .to('.now-rule', { scaleX: 1, duration: 1.1, ease: 'power3.inOut' }, '-=0.3');
+
+    // Items slide up and fade in
+    const items = gsap.utils.toArray('.now-item') as HTMLElement[];
+    items.forEach((el) => {
+      gsap.fromTo(el,
+        { opacity: 0, y: 28 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.9,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 88%' }
+        }
+      );
+    });
+  });
+</script>
