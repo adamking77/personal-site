@@ -1,4 +1,19 @@
-# Adam King
+import { getCollection } from 'astro:content';
+import type { APIContext } from 'astro';
+
+export async function GET(context: APIContext) {
+  const posts = await getCollection('writing');
+  const sortedPosts = posts.sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+  );
+
+  const site = context.site?.toString().replace(/\/$/, '') ?? 'https://adamking.me';
+
+  const postEntries = sortedPosts
+    .map((post) => `- ${post.data.title}: ${site}/writing/${post.id}`)
+    .join('\n');
+
+  const body = `# Adam King
 
 > Generalized specialist. Founder of GenZen — counter-exploitation and autonomy restoration.
 
@@ -10,14 +25,13 @@ His work sits at the intersection of pattern recognition, systems thinking, beha
 
 ## Site Structure
 
-- Homepage: https://adamking.me
-- Writing: https://adamking.me/writing
-- RSS Feed: https://adamking.me/rss.xml
+- Homepage: ${site}
+- Writing: ${site}/writing
+- RSS Feed: ${site}/rss.xml
 
-## Key Pages
+## Writing
 
-- The Case for the Generalized Specialist: https://adamking.me/writing/the-generalized-specialist
-- The AI COO Framework: https://adamking.me/writing/the-ai-coo-framework
+${postEntries}
 
 ## Topics Covered
 
@@ -33,3 +47,9 @@ His work sits at the intersection of pattern recognition, systems thinking, beha
 - GenZen Solutions: https://genzen.solutions
 - Sogo: https://sogo-site.vercel.app
 - LinkedIn: https://www.linkedin.com/in/adamkingco/
+`;
+
+  return new Response(body, {
+    headers: { 'Content-Type': 'text/plain; charset=utf-8' },
+  });
+}
