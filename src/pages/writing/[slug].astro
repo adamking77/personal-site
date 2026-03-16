@@ -15,9 +15,29 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Article",
+	"headline": post.data.title,
+	"description": post.data.description,
+	"datePublished": post.data.date.toISOString(),
+	"author": {
+		"@type": "Person",
+		"name": "Adam King",
+		"url": "https://adamking.me"
+	},
+	"publisher": {
+		"@type": "Person",
+		"name": "Adam King"
+	},
+	"mainEntityOfPage": {
+		"@type": "WebPage",
+		"@id": `https://adamking.me/writing/${post.id}`
+	}
+};
 ---
 
-<Layout title={`${post.data.title} — Adam King`}>
+<Layout title={`${post.data.title} — Adam King`} description={post.data.description} jsonLd={jsonLd}>
   <Navigation />
   <main class="w-full relative z-10 pt-24 md:pt-32">
 

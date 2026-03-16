@@ -1,0 +1,35 @@
+# Adam King
+
+> Generalized specialist. Founder of GenZen — counter-exploitation and autonomy restoration.
+
+## About
+
+Adam King is a generalized specialist based between Europe and Southeast Asia. He founded GenZen in 2016 — a counter-exploitation and autonomy restoration agency serving ultra-high-net-worth families and their advisors. He is also a co-developer of Sogo, an open-source productivity system, and a practitioner of agentic partnership design — building AI systems that operate as genuine working partners.
+
+His work sits at the intersection of pattern recognition, systems thinking, behavioral profiling, and design thinking — applied to detecting and reversing exploitation architectures across personal, business, and generational domains.
+
+## Site Structure
+
+- Homepage: https://adamking.me
+- Writing: https://adamking.me/writing
+- RSS Feed: https://adamking.me/rss.xml
+
+## Key Pages
+
+- The Case for the Generalized Specialist: https://adamking.me/writing/the-generalized-specialist
+- The AI COO Framework: https://adamking.me/writing/the-ai-coo-framework
+
+## Topics Covered
+
+- Counter-exploitation and autonomy restoration
+- Legacy protection for high-net-worth families
+- Agentic partnership design (AI as operational partner)
+- The generalized specialist as a practice model
+- Systems thinking applied to human autonomy
+- Pattern recognition in exploitation architectures
+
+## Related
+
+- GenZen Solutions: https://genzen.solutions
+- Sogo: https://sogo-site.vercel.app
+- LinkedIn: https://www.linkedin.com/in/adamkingco/

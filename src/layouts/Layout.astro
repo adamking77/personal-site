@@ -3,24 +3,60 @@ import '../styles/global.css';
 
 interface Props {
 	title: string;
+	description?: string;
+	canonicalUrl?: string;
+	ogImage?: string;
+	jsonLd?: Record<string, any>;
 }
 
-const { title } = Astro.props;
+const {
+	title,
+	description = 'Adam King — Generalized Specialist, founder of GenZen, counter-exploitation and autonomy restoration.',
+	canonicalUrl = Astro.url.href,
+	ogImage = '/ak-portrait.png',
+	jsonLd,
+} = Astro.props;
+
+const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://adamking.co';
+const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Adam King - Generalized Specialist & Founder of GenZen" />
 		<meta name="viewport" content="width=device-width" />
+		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="canonical" href={canonicalUrl} />
 		<meta name="generator" content={Astro.generator} />
-		
+
+		<!-- Open Graph -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:image" content={absoluteOgImage} />
+		<meta property="og:site_name" content="Adam King" />
+
+		<!-- Twitter -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={absoluteOgImage} />
+
+		<!-- RSS -->
+		<link rel="alternate" type="application/rss+xml" title="Adam King — Writing" href="/rss.xml" />
+
+		<!-- JSON-LD Structured Data -->
+		{jsonLd && (
+			<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+		)}
+
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=IBM+Plex+Mono:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-		
+
 		<title>{title}</title>
 
 		<script is:inline>
@@ -33,7 +69,7 @@ const { title } = Astro.props;
 				}
 				return 'light';
 			})();
-		
+
 			if (theme === 'dark') {
 				document.documentElement.classList.add('dark');
 			} else {

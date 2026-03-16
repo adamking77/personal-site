@@ -8,11 +8,36 @@ import Writing from '../components/Writing.astro';
 import Now from '../components/Now.astro';
 import Footer from '../components/Footer.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const jsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	"name": "Adam King",
+	"url": "https://adamking.me",
+	"image": "https://adamking.me/ak-portrait.png",
+	"jobTitle": "Founder & Lead Strategist",
+	"worksFor": {
+		"@type": "Organization",
+		"name": "GenZen",
+		"url": "https://genzen.solutions"
+	},
+	"description": "Generalized specialist. Founder of GenZen — counter-exploitation and autonomy restoration. Builder of Sogo. Practitioner of agentic partnership design.",
+	"knowsAbout": [
+		"Counter-exploitation",
+		"Autonomy restoration",
+		"Legacy protection",
+		"Agentic partnership design",
+		"Pattern recognition",
+		"Systems thinking",
+		"Behavioral profiling"
+	],
+	"sameAs": [
+		"https://www.linkedin.com/in/adamkingco/",
+		"https://www.instagram.com/adamkingco/"
+	]
+};
 ---
 
-<Layout title="Adam King — Generalized Specialist">
+<Layout title="Adam King — Generalized Specialist" jsonLd={jsonLd}>
 	<Navigation />
 	<main class="w-full relative z-10">
 		<Hero />
