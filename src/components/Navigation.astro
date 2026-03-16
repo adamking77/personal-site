@@ -4,19 +4,38 @@ import ThemeToggle from './ThemeToggle.astro';
 
 <nav class="fixed top-0 left-0 right-0 z-40 px-6 py-5 transition-all duration-300 bg-theme-glass backdrop-blur-md text-theme" id="main-nav">
   <div class="max-w-6xl mx-auto flex items-center justify-between">
-    <a href="/" class="font-mono text-xs tracking-[0.22em] uppercase text-theme whitespace-nowrap overflow-hidden" id="brand-link">
+    <a href="/" class="font-mono text-sm tracking-[0.22em] uppercase text-theme whitespace-nowrap overflow-hidden" id="brand-link">
       <span class="inline-block" id="brand-name">Adam King</span>
     </a>
 
     <div class="flex items-center gap-8">
+      <!-- Desktop nav -->
       <ul class="hidden md:flex items-center gap-8 font-mono text-xs uppercase tracking-[0.22em]">
         <li><a href="/#about" class="text-theme-muted hover:text-theme transition-colors duration-200">About</a></li>
         <li><a href="/#work" class="text-theme-muted hover:text-theme transition-colors duration-200">Work</a></li>
         <li><a href="/#now" class="text-theme-muted hover:text-theme transition-colors duration-200">Now</a></li>
         <li><a href="/writing" class="text-theme-muted hover:text-theme transition-colors duration-200">Writing</a></li>
       </ul>
+
+      <!-- Mobile menu button -->
+      <button id="mobile-menu-btn" class="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px]" aria-label="Toggle menu">
+        <span class="menu-line w-5 h-px transition-all duration-300 origin-center" style="background-color: var(--text-color);"></span>
+        <span class="menu-line w-5 h-px transition-all duration-300 origin-center" style="background-color: var(--text-color);"></span>
+        <span class="menu-line w-5 h-px transition-all duration-300 origin-center" style="background-color: var(--text-color);"></span>
+      </button>
+
       <ThemeToggle />
     </div>
+  </div>
+
+  <!-- Mobile menu panel -->
+  <div id="mobile-menu" class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out">
+    <ul class="flex flex-col gap-6 pt-8 pb-4 font-mono text-xs uppercase tracking-[0.22em]">
+      <li><a href="/#about" class="text-theme-muted hover:text-theme transition-colors duration-200 mobile-link">About</a></li>
+      <li><a href="/#work" class="text-theme-muted hover:text-theme transition-colors duration-200 mobile-link">Work</a></li>
+      <li><a href="/#now" class="text-theme-muted hover:text-theme transition-colors duration-200 mobile-link">Now</a></li>
+      <li><a href="/writing" class="text-theme-muted hover:text-theme transition-colors duration-200 mobile-link">Writing</a></li>
+    </ul>
   </div>
 </nav>
 
@@ -56,4 +75,37 @@ import ThemeToggle from './ThemeToggle.astro';
     }
     lastScrollY = currentY;
   }, { passive: true });
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuLines = menuBtn?.querySelectorAll('.menu-line');
+  let menuOpen = false;
+
+  menuBtn?.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+
+    if (menuOpen) {
+      mobileMenu!.style.maxHeight = mobileMenu!.scrollHeight + 'px';
+      gsap.to(menuLines![0], { rotate: 45, y: 6, duration: 0.3, ease: 'power2.out' });
+      gsap.to(menuLines![1], { opacity: 0, duration: 0.2, ease: 'power2.out' });
+      gsap.to(menuLines![2], { rotate: -45, y: -6, duration: 0.3, ease: 'power2.out' });
+    } else {
+      mobileMenu!.style.maxHeight = '0px';
+      gsap.to(menuLines![0], { rotate: 0, y: 0, duration: 0.3, ease: 'power2.out' });
+      gsap.to(menuLines![1], { opacity: 1, duration: 0.2, ease: 'power2.out' });
+      gsap.to(menuLines![2], { rotate: 0, y: 0, duration: 0.3, ease: 'power2.out' });
+    }
+  });
+
+  // Close menu when a link is clicked
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      menuOpen = false;
+      mobileMenu!.style.maxHeight = '0px';
+      gsap.to(menuLines![0], { rotate: 0, y: 0, duration: 0.3, ease: 'power2.out' });
+      gsap.to(menuLines![1], { opacity: 1, duration: 0.2, ease: 'power2.out' });
+      gsap.to(menuLines![2], { rotate: 0, y: 0, duration: 0.3, ease: 'power2.out' });
+    });
+  });
 </script>
