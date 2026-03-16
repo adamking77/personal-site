@@ -1,0 +1,59 @@
+---
+interface Signal {
+  title: string;
+  description: string;
+}
+
+interface Props {
+  signals: Signal[];
+}
+
+const { signals } = Astro.props;
+---
+
+<div class="signal-list">
+  {signals.map((s) => (
+    <div class="signal">
+      <div class="signal-title">{s.title}</div>
+      <div class="signal-desc">{s.description}</div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .signal-list {
+    display: flex;
+    flex-direction: column;
+    margin: 2em 0;
+    border-top: 2px solid var(--accent);
+  }
+  .signal {
+    display: flex;
+    gap: 1.5em;
+    padding: 1.25em 0;
+    border-bottom: 1px solid var(--border-color);
+    align-items: baseline;
+  }
+  .signal-title {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 0.9em;
+    flex-shrink: 0;
+    min-width: 10em;
+  }
+  .signal-desc {
+    color: var(--text-muted);
+    font-size: 0.875em;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  @media (max-width: 640px) {
+    .signal {
+      flex-direction: column;
+      gap: 0.3em;
+    }
+    .signal-title {
+      min-width: unset;
+    }
+  }
+</style>

@@ -1,0 +1,102 @@
+---
+interface Level {
+  label: string;
+  title: string;
+  description: string;
+  analogy?: string;
+}
+
+interface Props {
+  levels: Level[];
+}
+
+const { levels } = Astro.props;
+---
+
+<div class="progression">
+  {levels.map((level, i) => (
+    <div class="level">
+      <div class="level-track">
+        <div class="level-dot" />
+        {i < levels.length - 1 && <div class="level-line" />}
+      </div>
+      <div class="level-content">
+        <div class="level-header">
+          <span class="level-label">{level.label}</span>
+          <span class="level-title">{level.title}</span>
+        </div>
+        <div class="level-desc">{level.description}</div>
+        {level.analogy && <div class="level-analogy">{level.analogy}</div>}
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .progression {
+    margin: 2em 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .level {
+    display: flex;
+    gap: 1.25em;
+  }
+  .level-track {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 1em;
+    padding-top: 0.35em;
+  }
+  .level-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    flex-shrink: 0;
+  }
+  .level-line {
+    width: 1px;
+    flex-grow: 1;
+    background-color: var(--border-color);
+  }
+  .level-content {
+    padding-bottom: 1.75em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35em;
+  }
+  .level-header {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75em;
+  }
+  .level-label {
+    font-family: var(--font-mono);
+    font-size: 0.65em;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+  .level-title {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 1em;
+  }
+  .level-desc {
+    color: var(--text-muted);
+    font-size: 0.875em;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+  .level-analogy {
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 0.8em;
+    line-height: 1.5;
+    opacity: 0.75;
+  }
+</style>

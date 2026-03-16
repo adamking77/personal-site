@@ -1,0 +1,64 @@
+---
+interface Week {
+  week: string;
+  focus: string;
+  description: string;
+}
+
+interface Props {
+  weeks: Week[];
+}
+
+const { weeks } = Astro.props;
+---
+
+<div class="week-cycle">
+  {weeks.map((w) => (
+    <div class="week">
+      <div class="week-label">{w.week}</div>
+      <div class="week-focus">{w.focus}</div>
+      <div class="week-desc">{w.description}</div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .week-cycle {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    margin: 2em 0;
+    background-color: var(--border-color);
+    border: 1px solid var(--border-color);
+  }
+  .week {
+    background-color: var(--bg-color);
+    padding: 1.25em;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4em;
+  }
+  .week-label {
+    font-family: var(--font-mono);
+    font-size: 0.6em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .week-focus {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 1.1em;
+  }
+  .week-desc {
+    color: var(--text-muted);
+    font-size: 0.8em;
+    line-height: 1.45;
+    font-weight: 300;
+  }
+  @media (max-width: 640px) {
+    .week-cycle {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

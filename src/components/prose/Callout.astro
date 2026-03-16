@@ -1,0 +1,70 @@
+---
+interface Props {
+  label?: string;
+}
+
+const { label = "How we do it at GenZen" } = Astro.props;
+---
+
+<aside class="callout">
+  <span class="callout-label">{label}</span>
+  <div class="callout-content">
+    <slot />
+  </div>
+</aside>
+
+<style>
+  .callout {
+    border-top: 1px solid var(--accent);
+    border-bottom: 1px solid var(--border-color);
+    background-color: color-mix(in srgb, var(--accent) 4%, transparent);
+    padding: 1.75em 1.75em;
+    margin: 2em 0;
+  }
+  .callout-label {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7em;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25em;
+  }
+  .callout-content {
+    color: var(--text-color);
+    font-size: 1em;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+  .callout-content :global(p) {
+    margin-bottom: 1em;
+  }
+  .callout-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .callout-content :global(ul) {
+    list-style: none;
+    padding: 0;
+    margin: 1em 0;
+  }
+  .callout-content :global(li) {
+    padding-left: 1.25em;
+    position: relative;
+    margin-bottom: 0.4em;
+  }
+  .callout-content :global(li::before) {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.8em;
+  }
+  .callout-content :global(strong) {
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  .callout-content :global(em) {
+    font-style: italic;
+  }
+</style>

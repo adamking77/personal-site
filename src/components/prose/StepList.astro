@@ -1,0 +1,69 @@
+---
+interface Step {
+  number: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  steps: Step[];
+}
+
+const { steps } = Astro.props;
+---
+
+<div class="step-list">
+  {steps.map((step) => (
+    <div class="step">
+      <div class="step-number">{step.number}</div>
+      <div class="step-content">
+        <div class="step-title">{step.title}</div>
+        <div class="step-desc">{step.description}</div>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin: 2em 0;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+  }
+  .step {
+    display: flex;
+    gap: 1.5em;
+    padding: 1.25em 0;
+    border-bottom: 1px solid var(--border-color);
+  }
+  .step:last-child {
+    border-bottom: none;
+  }
+  .step-number {
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    color: var(--accent);
+    padding-top: 0.15em;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+  .step-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3em;
+  }
+  .step-title {
+    font-weight: 500;
+    color: var(--text-color);
+    font-size: 1em;
+  }
+  .step-desc {
+    color: var(--text-muted);
+    font-size: 0.9em;
+    line-height: 1.5;
+    font-weight: 300;
+  }
+</style>

@@ -129,6 +129,31 @@
     font-size: 0.75em;
     top: 0.2em;
   }
+  .prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2em 0;
+    font-size: 0.9em;
+  }
+  .prose thead {
+    border-bottom: 2px solid var(--border-color);
+  }
+  .prose th {
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: left;
+    padding: 0.75em 1em;
+  }
+  .prose td {
+    padding: 0.75em 1em;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: top;
+    line-height: 1.5;
+  }
   .prose hr { border: none; border-top: 1px solid var(--border-color); margin: 3em 0; }
 }
 
