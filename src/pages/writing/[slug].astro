@@ -37,7 +37,16 @@ const jsonLd = {
 };
 ---
 
-<Layout title={`${post.data.title} — Adam King`} description={post.data.description} jsonLd={jsonLd}>
+<Layout
+  title={`${post.data.title} — Adam King`}
+  description={post.data.description}
+  ogType="article"
+  article={{
+    publishedTime: post.data.date.toISOString(),
+    section: post.data.category ?? 'Resource',
+  }}
+  jsonLd={jsonLd}
+>
   <Navigation />
   <main class="w-full relative z-10 pt-24 md:pt-32">
 
