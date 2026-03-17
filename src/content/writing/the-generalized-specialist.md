@@ -19,7 +19,7 @@ Turns out this mess of a background was the most valuable combination I could ha
 
 It sounds like a contradiction. It's not.
 
-A **Generalized Specialist** builds real depth in a central area while deliberately pulling from other disciplines. And I mean real depth, not "I read a book about it once." The breadth is real too. Not dabbling. The trick is that everything you pull in from outside *serves* the core work. It doesn't compete with it.
+A **Generalized Specialist** builds real depth in a central area while deliberately pulling from other disciplines. And I mean real depth, not "I read a book about it once." The breadth is real too. Actual working knowledge. The trick is that everything you pull in from outside *serves* the core work. It doesn't compete with it.
 
 My central area is counter-exploitation. Detecting, mapping, and dismantling systems that extract autonomy from people through trusted relationships and structures that look perfectly legitimate on the surface.
 
@@ -33,7 +33,7 @@ Here's the thing about pure specialists. They're not dumb. They're not lazy. But
 
 Systematic exploitation is the clearest example I know. The patterns that people and institutions use to extract value from others don't announce themselves in any one field's language.
 
-A lawyer sees the contracts. A psychologist sees the coercion. An economist sees the incentive misalignment. A family advisor sees the relationship strain. None of them sees the whole system. They're trained to see dysfunction, not predatory design.
+A lawyer sees the contracts. A psychologist sees the coercion. An economist sees the incentive misalignment. A family advisor sees the relationship strain. None of them sees the whole system. They're trained to see dysfunction. Predatory design looks different from every angle, and no single discipline holds enough of them.
 
 I've watched this play out in family offices where financial advisors couldn't spot a predatory actor in their own network. The exploitation persisted because nobody in the room had the range to see the full picture. The blind spot isn't about intelligence. It's structural. Specialists are contained by the boundaries of their field. The problems that matter most don't respect those boundaries.
 
