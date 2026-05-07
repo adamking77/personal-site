@@ -1,0 +1,19 @@
+{
+  "headers": [
+    {
+      "source": "/_astro/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</sitemap-index.xml>; rel=\"sitemap\", </llms.txt>; rel=\"describedby\"; type=\"text/plain\", </schemamap.xml>; rel=\"https://schema.org/schemaMap\", </.well-known/api-catalog>; rel=\"https://www.iana.org/assignments/link-relations/api-catalog\""
+        }
+      ]
+    }
+  ]
+}

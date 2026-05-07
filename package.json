@@ -15,12 +15,15 @@
     "@astrojs/mdx": "^5.0.0",
     "@astrojs/rss": "^4.0.17",
     "@astrojs/sitemap": "^3.7.1",
+    "@jdevalk/astro-seo-graph": "^2.0.0",
     "@lexingtonthemes/seo": "^0.1.0",
     "@tailwindcss/vite": "^4.2.1",
     "astro": "^6.0.4",
     "gsap": "^3.14.2",
     "lucide-astro": "^0.556.0",
     "rehype-external-links": "^3.0.0",
+    "satori": "^0.26.0",
+    "sharp": "^0.34.5",
     "tailwindcss": "^4.2.1"
   }
 }

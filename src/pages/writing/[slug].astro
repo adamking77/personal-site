@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import Navigation from '../../components/Navigation.astro';
 import Footer from '../../components/Footer.astro';
+import { articleGraph, SITE_URL } from '../../utils/schema/index';
 
 export async function getStaticPaths() {
   const posts = await getCollection('writing');
@@ -13,39 +14,34 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
-const jsonLd = {
-	"@context": "https://schema.org",
-	"@type": "Article",
-	"headline": post.data.title,
-	"description": post.data.description,
-	"datePublished": post.data.date.toISOString(),
-	"author": {
-		"@type": "Person",
-		"name": "Adam King",
-		"url": "https://adamking.me"
-	},
-	"publisher": {
-		"@type": "Person",
-		"name": "Adam King"
-	},
-	"mainEntityOfPage": {
-		"@type": "WebPage",
-		"@id": `https://adamking.me/writing/${post.id}`
-	}
-};
+const tocHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+const hasToc = tocHeadings.length >= 3;
+
+const postUrl = `${SITE_URL}/writing/${post.id}/`;
+const ogImage = `${SITE_URL}/og/${post.id}.jpg`;
+const graph = articleGraph({
+  url: postUrl,
+  title: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date,
+  category: post.data.category,
+  ogImage,
+});
 ---
 
 <Layout
   title={`${post.data.title} — Adam King`}
   description={post.data.description}
   ogType="article"
+  ogImage={ogImage}
+  ogImageAlt={post.data.title}
   article={{
     publishedTime: post.data.date.toISOString(),
     section: post.data.category ?? 'Resource',
   }}
-  jsonLd={jsonLd}
+  graph={graph}
 >
   <Navigation />
   <main class="w-full relative z-10 pt-24 md:pt-32">
@@ -55,7 +51,7 @@ const jsonLd = {
 
       <!-- Breadcrumb -->
       <div class="mb-12">
-        <a href="/writing" class="font-mono text-[11px] tracking-[0.2em] uppercase text-theme-muted hover:text-theme transition-colors duration-200">
+        <a href="/writing/" class="font-mono text-[11px] tracking-[0.2em] uppercase text-theme-muted hover:text-theme transition-colors duration-200">
           ← Writing
         </a>
       </div>
@@ -84,8 +80,29 @@ const jsonLd = {
 
     <!-- Post body -->
     <article class="px-6 w-full max-w-6xl mx-auto pb-24 md:pb-32 post-body opacity-0">
-      <div class="lg:ml-[20%] max-w-[68ch] prose">
-        <Content />
+      <div class={hasToc ? "lg:flex lg:gap-16" : ""}>
+
+        {hasToc && (
+          <aside class="article-sidebar hidden lg:block shrink-0">
+            <nav class="article-toc" style="position: sticky; top: 7rem;">
+              <span class="toc-eyebrow">Contents</span>
+              <ul class="toc-list">
+                {tocHeadings.map((h) => (
+                  <li class={`toc-item toc-depth-${h.depth}`}>
+                    <a href={`#${h.slug}`} class="toc-link" data-heading-id={h.slug}>
+                      {h.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </aside>
+        )}
+
+        <div class={`prose ${hasToc ? 'max-w-[68ch] w-full min-w-0' : 'lg:ml-[20%] max-w-[68ch]'}`}>
+          <Content />
+        </div>
+
       </div>
     </article>
 
@@ -98,6 +115,57 @@ const jsonLd = {
   </div>
 </Layout>
 
+<style>
+  .article-sidebar {
+    width: 18%;
+  }
+
+  .toc-eyebrow {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.65em;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.1em;
+  }
+
+  .toc-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid var(--border-color);
+  }
+
+  .toc-link {
+    display: block;
+    padding: 0.38em 0.9em;
+    font-size: 0.73rem;
+    font-weight: 300;
+    color: var(--text-muted);
+    text-decoration: none;
+    line-height: 1.45;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    border-left: 2px solid transparent;
+    margin-left: -1px;
+  }
+
+  .toc-link:hover {
+    color: var(--text-color);
+  }
+
+  .toc-depth-3 .toc-link {
+    padding-left: 1.5em;
+    font-size: 0.68rem;
+  }
+
+  .toc-link.is-active {
+    color: var(--accent);
+    border-left-color: var(--accent);
+    opacity: 1;
+  }
+</style>
+
 <script>
   import gsap from 'gsap';
 
@@ -106,5 +174,28 @@ const jsonLd = {
     tl.to('.post-header', { opacity: 1, duration: 0.8, ease: 'power3.out' })
       .to('.post-rule', { scaleX: 1, duration: 1.1, ease: 'power3.inOut' }, '-=0.4')
       .to('.post-body', { opacity: 1, duration: 0.8, ease: 'power3.out' }, '-=0.6');
+
+    // TOC active section tracking
+    const headingEls = Array.from(document.querySelectorAll('article h2[id], article h3[id]'));
+    const tocLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.toc-link'));
+
+    if (headingEls.length && tocLinks.length) {
+      const onScroll = () => {
+        let current = (headingEls[0] as HTMLElement).id;
+
+        for (const el of headingEls as HTMLElement[]) {
+          if (el.getBoundingClientRect().top < 140) {
+            current = el.id;
+          }
+        }
+
+        tocLinks.forEach(link => {
+          link.classList.toggle('is-active', link.dataset.headingId === current);
+        });
+      };
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      onScroll();
+    }
   });
 </script>

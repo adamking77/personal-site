@@ -1,0 +1,549 @@
+---
+title: "Building an AI COO: From First Session to Full Stack"
+description: "The implementation guide for the AI COO Framework. From a brief that loads automatically to a searchable knowledge vault backed by Supabase."
+date: 2026-05-07
+category: "Guide"
+---
+
+import SignalList from '../../components/prose/SignalList.astro';
+import Callout from '../../components/prose/Callout.astro';
+
+This is the implementation guide for the [AI COO Framework](/writing/the-ai-coo-framework/). Read the framework for the architecture. Read this to build it.
+
+This guide was written with neurodivergent founders specifically in mind, but everything here applies to anyone who's found that AI tools add work instead of removing it.
+
+The typical problem: every session starts blank. You re-explain who you are, what the business does, what matters, what you're working on. For brains already carrying a significant cognitive load, that re-briefing cost is often what makes AI feel not worth the effort.
+
+This guide builds a different setup: an AI Partner that loads your context before the session starts. No re-briefing. Recommendations that already account for how you actually work.
+
+The documents and database you build here are yours. They're not tied to any platform or model — paste the same brief into Claude, ChatGPT, or anything else. Switch models, use multiple, or experiment freely. The context travels with you.
+
+<Callout label="Guided mode">
+Prefer to be walked through this rather than reading it straight through? Hand this article to your AI and use this prompt:
+
+```
+Read this implementation guide. Then walk me through it step by step. 
+At each critical decision point — identity and role, decision priority stack, 
+role boundaries, energy patterns — ask me the specific questions I need to 
+answer before we move on. Don't proceed to the next step until we've 
+completed the current one.
+```
+</Callout>
+
+---
+
+## Phase 1: Your First Working AI COO
+
+### Step 1: Build your AI brief
+
+Open a blank document. Work through these eight categories in order. Just free-write. Don't organize or edit as you go.
+
+---
+
+**1. Your identity and role**
+
+Write a paragraph that answers: who are you in this business, and what are you actually responsible for day to day?
+
+Starter:
+
+```
+My name is [name]. I'm the [role] at [business name]. 
+Day to day I'm responsible for [primary responsibilities]. 
+I am not the person who handles [clarify what you don't own].
+```
+
+Why this matters: Without it, the AI doesn't know whose perspective to optimize from. It might give CEO-scale advice when you're a solo operator doing everything, or vice versa.
+
+---
+
+**2. What the business does**
+
+One paragraph. Specific enough that someone could explain your business to a stranger.
+
+Starter:
+
+```
+We [help/build/teach/protect/create] [specific customer type] [achieve/avoid/do what].
+We do this by [your core mechanism or approach].
+Our clients typically come to us when [trigger situation or moment of recognition].
+```
+
+Why this matters: Every recommendation the AI makes gets filtered through this. "Hire a PR firm" is useless advice for a two-person consultancy and useful advice for a scaling SaaS. The AI needs to know which one you are.
+
+---
+
+**3. Decision priority stack**
+
+Rank your six most important values. Then write one collision rule for each adjacent pair.
+
+A collision rule tells the AI what to do when two priorities pull in opposite directions. Without them, the AI either freezes on ambiguous trade-offs or picks wrong. The rule doesn't have to be perfect, it just has to reflect what you'd actually decide.
+
+Template:
+
+```
+Priority stack:
+1. [Most important] — e.g., "Work quality: the output has to be right"
+2. [Second]
+3. [Third]
+4. [Fourth]
+5. [Fifth]
+6. [Sixth]
+
+Collision rules:
+- When 1 and 2 conflict: [which wins, and under what condition]
+- When 2 and 3 conflict: [which wins]
+- When 3 and 4 conflict: [which wins]
+- When 4 and 5 conflict: [which wins]
+- When 5 and 6 conflict: [which wins]
+```
+
+The GenZen stack for reference: work integrity > strategic value > honest self-expression > execution efficiency > revenue > time. When work quality and speed conflict, slow down. When revenue and time conflict, favor revenue unless the time cost exceeds twice the expected return.
+
+Why this matters: The AI makes calls constantly. Without a ranked list, it guesses. With collision rules, it resolves most trade-offs without interrupting you.
+
+---
+
+**4. Operating ethos: what it optimizes for**
+
+Write a list of what the AI should optimize for in every interaction.
+
+Examples to adapt:
+
+```
+Optimize for:
+- Clarity and calm precision over dramatic urgency
+- Sustainable systems over heroic effort
+- Reducing my cognitive load while preserving my judgment
+- High-leverage actions over busy work
+- The smallest next true step over motivational pushing
+```
+
+Why this matters: This shapes the character of every recommendation. The difference between an AI that adds to your workload and one that reduces it is mostly here.
+
+---
+
+**5. Operating ethos: what it avoids**
+
+Write a list of explicit avoidances. Include at least one instruction about what to do when you're stuck.
+
+Examples:
+
+```
+Never:
+- Add demand pressure or create new sources of guilt
+- Suggest strategies that require sustained energy I haven't indicated I have
+- Make decisions that are mine to make
+- Give me five options when one clear recommendation would serve better
+
+When I'm stuck or resistant: treat that as data. Don't push. Ask what's missing 
+or wrong about the approach. Resistance is usually a signal, not a discipline problem.
+```
+
+Why this matters: Without this, the AI defaults to generating options and momentum. That's often the opposite of what's useful.
+
+---
+
+**6. Role boundaries: what it doesn't do**
+
+Write hard limits. These aren't about distrust. They're about where your judgment is non-negotiable.
+
+```
+This AI does not:
+- Send or post anything client-facing without my review
+- Make financial decisions without my explicit confirmation
+- Change business positioning or messaging without my input
+- Make commitments of time or resources on my behalf
+- [Add your specific limits]
+```
+
+Why this matters: Without explicit limits, the AI either plays too conservatively (asks permission for everything) or overreaches. Define this now.
+
+---
+
+**7. How you work**
+
+If this sounds like how you work, this is the most important section in the guide.
+
+Free-write about your working patterns: what activates you, what shuts you down, what drains you even when you're technically functioning. A rough draft is fine. You'll refine it over time as you notice what's actually true.
+
+Starter:
+
+```
+I work best when [e.g., "tasks are clear and bounded" / "I understand the full context before I start"].
+I lose momentum or shut down when [e.g., "tasks are vague" / "there's too much context-switching" / 
+"I feel pressure I didn't consent to"].
+My energy is highest [time of day or context].
+My working rhythm is [e.g., "focused bursts with full stops between" / 
+"4-week rotation: Build / Market / Ops / Slack"].
+```
+
+Why this matters: Without it, the AI defaults to "consistent daily action" recommendations. For some people that's useful; for others it's a direct path to burnout. With it, the AI stops suggesting strategies you'll never execute. It respects your actual rhythm. Tasks get bounded. The pressure patterns that shut you down stop showing up in recommendations.
+
+This section reshapes how every conversation feels.
+
+---
+
+**8. Current priorities**
+
+Three active priorities with a one-line status on each. Update this monthly with your agent.
+
+```
+Active priorities as of [month, year]:
+1. [Priority] — [status]
+2. [Priority] — [status]
+3. [Priority] — [status]
+```
+
+Why this matters: The AI knows what matters right now, not what mattered in general. Stale priorities produce stale advice. Updating this monthly takes two minutes and keeps recommendations grounded in reality.
+
+---
+
+### Step 2: Run the AI interview
+
+Take everything you've written, messy and incomplete, and give it to your AI with this prompt:
+
+```
+I'm building a context document so you can know my business without me re-explaining 
+it every session. I've written a raw dump of the most important context. Read it, 
+then ask me questions until you feel like you have a complete picture. 
+Go one question at a time. Don't stop until you've run out of things to ask.
+
+Here's what I have so far:
+
+[paste your raw doc]
+```
+
+Then answer honestly. Don't polish your answers. Don't try to sound strategic. The AI will surface context you didn't think to include. Things you've been holding in your head so long you forgot they were context.
+
+The first "Steve The COO" document was two pages of unorganized notes, half of them irrelevant. That conversation took forty minutes. Within a week, sessions felt different. Not because the AI got smarter. Because it already knew the business. For a brain that's been carrying all of that context manually, the shift from starting over to continuing is bigger than it sounds.
+
+If forty minutes feels like a lot right now, set a timer for twenty and stop there. You can continue later. The AI holds context within a session; paste where you left off.
+
+The interview is the step most people skip. Don't skip it.
+
+---
+
+### Step 3: Split it into two documents
+
+Once the interview runs dry, ask the AI to structure everything into two documents:
+
+**Your AI brief**
+
+- Who the AI is and its role
+- Operating ethos (what it optimizes for, what it avoids)
+- Role boundaries
+- Decision priority stack and collision rules
+
+This document loads every session. It changes rarely. Update it when your role, ethos, or core priorities change.
+
+**Your business brief**
+
+- Business description and customer profile
+- Working patterns and energy map
+- Operational cadence and current rhythm
+- Active projects and priorities
+
+This document also loads every session. It changes more often. Update current priorities monthly, update cadence when it shifts.
+
+Prompt to run after the interview:
+
+```
+Now structure everything we've covered into two separate documents:
+The first is my AI brief — identity, ethos, boundaries, decision stack.
+The second is my business brief — business context, working patterns, cadence, active priorities.
+Write them as reference documents you'd read at the start of every session.
+```
+
+---
+
+### Step 4: Load into a persistent workspace
+
+The simplest option for a first pass: paste your AI brief directly into the system settings of whatever AI you already use. Claude has a "System Prompt" field in project settings. ChatGPT has Custom Instructions under Settings. Either one will load your brief automatically at the start of every session, no workspace required.
+
+Because the brief is a document you own, not a platform feature, you're never locked in. The same file works across any AI you use now or switch to later.
+
+When you're ready for more, dedicated workspaces add deeper integration and the ability to upload your business brief as a separate file.
+
+**Claude Cowork (recommended for non-technical users)**
+
+Go to [claude.ai/cowork](https://claude.ai/cowork). Create a workspace. Add your AI brief and business brief to the workspace instructions. Every session you open in that workspace will load them automatically.
+
+Cowork includes deep connectors for Google Workspace, Slack, Figma, and Asana. No code required. It went to general availability in April 2026. No comparable non-technical option has deeper integrations right now.
+
+Available on Claude Pro, Max, Team, and Enterprise.
+
+**ChatGPT**
+
+Go to Settings > Custom Instructions. Paste your AI brief there. Add your business brief as a pinned file or in a separate Custom Instructions field.
+
+ChatGPT's memory is on by default and will build on your context over time. For teams, Workspace Agents (Team/Enterprise) adds integrations with Slack, Salesforce, Notion, and Google Drive.
+
+**Any other platform**
+
+The documents are what matter, not where you load them. Most major AI platforms have some version of persistent instructions or system prompts. Find that setting and paste your AI brief there. Keep your business brief accessible to paste when starting a new session.
+
+---
+
+### Step 5: Run your first real session
+
+Open your workspace and start with something you'd normally have to re-explain.
+
+<SignalList signals={[
+  { title: "No re-briefing.", description: "The AI doesn't ask who you are or what you do." },
+  { title: "Fits how you work.", description: "Recommendations match your actual cadence and constraints, not generic advice." },
+  { title: "Context is already there.", description: "When you mention a project, the AI already knows what it is." },
+  { title: "You're continuing.", description: "Not starting over. Picking up exactly where you left off." },
+]} />
+
+If something's wrong, it usually shows up as advice that ignores something obvious about your situation. That's a signal that context is missing. Go back to the document, add what's absent, and reload.
+
+---
+
+## Phase 2: Add the Database Layer
+
+If Phase 1 is working well, you stop there for a while and see how it goes. You have an AI Partner that loads your context automatically and gives recommendations that fit how you actually work. Everything below is optional depth.
+
+But if you're looking for an interconnected "Second Brain" if you will, then move on to Phase 2.
+
+Phase 2 adds persistence the workspace layer doesn't provide: a queryable record of decisions, vault files, and session context that grows over time.
+
+SQLite is the right starting point. It's file-based, requires no server, works offline, and has a clean migration path to Supabase when you're ready for more.
+
+<Callout label="Not technical?">
+You can ask your AI to walk you through this section the same way it walked you through Phase 1. Give it the Phase 2 section of this guide and use this prompt:
+
+```
+Read this Phase 2 section. Walk me through the database setup step by step. 
+When we get to terminal commands or SQL, tell me exactly what to run and where. 
+Ask me questions when you need to know something about my setup.
+```
+
+If you prefer to work directly: use Claude Code, your terminal, or any SQL editor. The commands below are copy-paste ready.
+</Callout>
+
+### Create the database
+
+Install SQLite if you don't have it. On macOS: `brew install sqlite`. Then:
+
+```bash
+sqlite3 ~/ai-coo.db
+```
+
+Run this schema:
+
+```sql
+-- Versioned AI brief and business brief documents
+CREATE TABLE context_docs (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  layer INTEGER NOT NULL CHECK (layer IN (1, 2)),
+  content TEXT NOT NULL,
+  version INTEGER DEFAULT 1,
+  active BOOLEAN DEFAULT TRUE,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Captured decisions with full context
+CREATE TABLE decisions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  context TEXT,
+  decision TEXT NOT NULL,
+  outcome TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Business knowledge: frameworks, project docs, client notes
+CREATE TABLE vault_files (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  file_type TEXT NOT NULL CHECK (file_type IN ('framework', 'strategy', 'project', 'client', 'operations')),
+  domain TEXT NOT NULL CHECK (domain IN ('internal', 'business', 'personal')),
+  content TEXT NOT NULL,
+  source_path TEXT,
+  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Session logs
+CREATE TABLE sessions (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  summary TEXT NOT NULL,
+  decisions_made TEXT,
+  open_threads TEXT,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Energy patterns and recurring observations
+CREATE TABLE patterns (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  category TEXT NOT NULL CHECK (category IN ('energy', 'cadence', 'observation')),
+  content TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Auto-update timestamps
+CREATE TRIGGER update_context_docs_timestamp
+  AFTER UPDATE ON context_docs
+  BEGIN
+    UPDATE context_docs SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
+  END;
+
+CREATE TRIGGER update_vault_files_timestamp
+  AFTER UPDATE ON vault_files
+  BEGIN
+    UPDATE vault_files SET updated_at = CURRENT_TIMESTAMP WHERE id = NEW.id;
+  END;
+```
+
+Save your AI brief and business brief as the first records in `context_docs`. Save anything you'd want to reference later (frameworks, project notes, decisions) in `vault_files`.
+
+### Connect it to your AI COO
+
+**Claude Code + MCP (recommended)**
+
+The MCP SQLite server gives Claude direct read and write access to your database.
+
+```bash
+claude mcp add sqlite -- npx -y @modelcontextprotocol/server-sqlite ~/ai-coo.db
+```
+
+After this, Claude Code can query the database, save decisions, update context docs, and log sessions without you manually managing the files.
+
+**No-code (Lindy, Gumloop)**
+
+Both platforms have database action nodes. Connect them to your SQLite file and build simple flows: after a session summary is drafted, save it to `sessions`. When a decision is made, log it to `decisions`. These flows don't require code and can be set up in an afternoon.
+
+**Manual**
+
+Export the tables you need as JSON and paste the relevant sections at the start of sessions where you want that history available. This is slower but requires nothing to set up.
+
+---
+
+## Phase 3: Upgrade to Supabase
+
+Supabase is a free, cloud-hosted database. You don't install anything locally — you create a project at supabase.com, run a schema, and it lives in the cloud from that point on.
+
+What makes it the right fit here is that your AI Partner can connect to it directly via MCP, meaning it can search and retrieve from your knowledge vault in real time rather than relying on what fits in a single session's context window.
+
+<Callout label="Why this matters">
+This enables total context accessible to multiple AI models at the same time. Every model you use — Claude, ChatGPT, a custom agent — pulls from the same vault. Context stops being tied to a single tool.
+</Callout>
+
+It also supports vector search, which is what enables semantic retrieval — finding content by meaning rather than exact wording. The SQLite database from Phase 2 uses the same schema, so migration is straightforward when you're ready.
+
+Move to Supabase when:
+
+- Your SQLite database is too large to load into context
+- You want semantic search (find conceptually related content, not just exact text)
+- You want access from multiple devices and AI models
+- You want automated sync when you add or change files
+
+### Set up the project
+
+Create a project at [supabase.com](https://supabase.com). Enable the pgvector extension in the SQL editor:
+
+```sql
+CREATE EXTENSION IF NOT EXISTS vector;
+```
+
+### Run the schema
+
+Use the same core schema from Phase 2, then add:
+
+```sql
+-- Embedding column on vault_files for semantic search
+ALTER TABLE vault_files ADD COLUMN embedding vector(384);
+
+-- Chunks table for long documents
+CREATE TABLE chunks (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  vault_file_id BIGINT REFERENCES vault_files(id) ON DELETE CASCADE,
+  chunk_index INTEGER NOT NULL,
+  content TEXT NOT NULL,
+  embedding vector(384),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX ON chunks USING ivfflat (embedding vector_cosine_ops)
+  WITH (lists = 100);
+
+-- Similarity search function
+CREATE OR REPLACE FUNCTION match_vault_files(
+  query_embedding vector(384),
+  match_threshold FLOAT DEFAULT 0.7,
+  match_count INT DEFAULT 10
+)
+RETURNS TABLE (id BIGINT, title TEXT, content TEXT, similarity FLOAT)
+LANGUAGE SQL STABLE AS $$
+  SELECT id, title, content,
+         1 - (embedding <=> query_embedding) AS similarity
+  FROM vault_files
+  WHERE 1 - (embedding <=> query_embedding) > match_threshold
+  ORDER BY embedding <=> query_embedding
+  LIMIT match_count;
+$$;
+```
+
+### Set up the sync script
+
+The vault sync detects file changes via MD5 hash and pushes new or changed content to Supabase. The base setup requires only your Supabase credentials.
+
+You'll need:
+
+- A Supabase project URL and service role key
+- Node.js 18+
+
+The template sync script is in the templates folder (see below). Add your credentials to a `.env` file:
+
+```
+SUPABASE_URL=your_project_url
+SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
+VAULT_DIR=./vault
+```
+
+Run it manually or set it to watch for file changes using a launchd service (macOS) or cron job (Linux).
+
+**Optional: add semantic search**
+
+Without embeddings, your vault supports keyword search: exact text matches across all your files. That's useful. Semantic search goes further; it finds conceptually related content even when the wording doesn't match. Ask about "client trust" and it surfaces decisions about engagement scope, fee structure, and onboarding. Those are related, even if the words aren't.
+
+To enable it, add an [OpenRouter](https://openrouter.ai) API key. OpenRouter is a routing layer that gives you access to embedding models without a direct OpenAI account. The sync script uses it to generate vector embeddings for each document (numerical representations of meaning that Supabase uses to find similar content).
+
+Add to your `.env`:
+
+```
+OPENROUTER_API_KEY=your_openrouter_key
+```
+
+The script will skip embedding generation if this key is absent, so you can start without it and add it later.
+
+Once running, any markdown file you save in your vault directory syncs to Supabase automatically.
+
+---
+
+## Templates
+
+All templates are available as a [single download](https://pn4icgtmn41r8iqi.public.blob.vercel-storage.com/ai-coo-templates.zip):
+
+1. **`ai-brief-template.md`**: Fill-in-the-blank for all eight context categories. Use this as your starting document for Step 1.
+2. **`business-brief-template/`**: The 10-file context portfolio structure used in production at GenZen. One file per domain: identity, role and responsibilities, current projects, team and relationships, tools and systems, communication style, goals and priorities, preferences and constraints, domain knowledge, decision log. Use as a blank starting point and add what's true for your business.
+3. **`sqlite-schema.sql`**: The complete Phase 2 schema, ready to run.
+4. **`supabase-schema.sql`**: Phase 3 schema including pgvector additions and the similarity search function.
+5. **`vault-sync-template.mjs`**: Generalized sync script adapted from the production vault sync at GenZen. Handles MD5 change detection, embedding generation, and Supabase upsert.
+6. **`cowork-system-prompt-starter.md`**: A ready-to-paste AI brief starter formatted for Claude Cowork workspace instructions.
+
+---
+
+## What You No Longer Have to Carry
+
+After Phase 1: the context. You stop being the one who holds everything in their head and re-explains it from scratch every session. The AI already knows. You open a session and continue. Not start over.
+
+After Phase 2: the decisions. What was decided, when, and why lives in a database your AI can query. You're not reconstructing history from memory.
+
+After Phase 3: the knowledge. Frameworks, project notes, related decisions, all findable by meaning, not just keyword. You ask a question and get what's relevant, not what you remembered to look for.
+
+The full architecture (what to layer on top, how to evolve this over time) is in the [AI COO Framework](/writing/the-ai-coo-framework/).
+
+---
+
+*Built by Adam King / GenZen Solutions. The AI COO Framework is free to use, adapt, and share.*

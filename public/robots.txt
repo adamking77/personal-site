@@ -27,3 +27,6 @@ User-agent: cohere-ai
 Allow: /
 
 Sitemap: https://adamking.me/sitemap-index.xml
+Schemamap: https://adamking.me/schemamap.xml
+
+Content-Signal: ai-train=yes, search=yes, ai-input=yes

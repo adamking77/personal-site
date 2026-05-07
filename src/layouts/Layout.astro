@@ -1,34 +1,39 @@
 ---
 import '../styles/global.css';
-import { AstroSeo } from '@lexingtonthemes/seo';
+import Seo from '@jdevalk/astro-seo-graph/Seo.astro';
 
 interface Props {
 	title: string;
 	description?: string;
 	canonicalUrl?: string;
 	ogImage?: string;
-	ogType?: string;
-	jsonLd?: Record<string, any> | Record<string, any>[];
+	ogImageAlt?: string;
+	ogType?: 'website' | 'article' | 'profile' | 'book';
+	graph?: object | null;
 	article?: {
 		publishedTime?: string;
 		modifiedTime?: string;
 		section?: string;
 		tags?: string[];
 	};
+	noindex?: boolean;
 }
 
 const {
 	title,
 	description = 'Adam King — Generalized Specialist, founder of GenZen, counter-exploitation and autonomy restoration.',
-	canonicalUrl = Astro.url.href,
+	canonicalUrl,
 	ogImage = '/ak-portrait.png',
+	ogImageAlt = 'Adam King',
 	ogType = 'website',
-	jsonLd,
+	graph,
 	article,
+	noindex = false,
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString().replace(/\/$/, '') ?? 'https://adamking.me';
 const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+const canonical = canonicalUrl ?? Astro.url.href;
 ---
 
 <!doctype html>
@@ -39,30 +44,28 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogIm
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 
-		<AstroSeo
+		<Seo
 			title={title}
 			description={description}
-			canonical={canonicalUrl}
-			openGraph={{
-				type: ogType,
-				title,
-				description,
-				url: canonicalUrl,
-				site_name: 'Adam King',
-				image: {
-					url: absoluteOgImage,
-					width: 1200,
-					height: 630,
-					type: 'image/png',
-				},
-				...(article && { article }),
-			}}
-			twitter={{
-				cardType: 'summary_large_image',
-			}}
-			jsonLd={jsonLd}
-			additionalLinkTags={[
-				{ rel: 'alternate', type: 'application/rss+xml', href: '/rss.xml' },
+			canonical={canonical}
+			ogType={ogType}
+			ogImage={absoluteOgImage}
+			ogImageAlt={ogImageAlt}
+			ogImageWidth={1200}
+			ogImageHeight={630}
+			siteName="Adam King"
+			locale="en_US"
+			noindex={noindex}
+			graph={graph}
+			article={article ? {
+				publishedTime: article.publishedTime ? new Date(article.publishedTime) : undefined,
+				modifiedTime: article.modifiedTime ? new Date(article.modifiedTime) : undefined,
+				section: article.section,
+				tags: article.tags,
+			} : undefined}
+			extraLinks={[
+				{ rel: 'alternate', type: 'application/rss+xml', href: `${siteUrl}/rss.xml`, title: 'Adam King — Writing' },
+				{ rel: 'sitemap', href: '/sitemap-index.xml' },
 			]}
 		/>
 

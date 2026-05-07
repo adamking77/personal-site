@@ -7,37 +7,12 @@ import Work from '../components/Work.astro';
 import Writing from '../components/Writing.astro';
 import Now from '../components/Now.astro';
 import Footer from '../components/Footer.astro';
+import { homePageGraph } from '../utils/schema/index';
 
-const jsonLd = {
-	"@context": "https://schema.org",
-	"@type": "Person",
-	"name": "Adam King",
-	"url": "https://adamking.me",
-	"image": "https://adamking.me/ak-portrait.png",
-	"jobTitle": "Founder & Lead Strategist",
-	"worksFor": {
-		"@type": "Organization",
-		"name": "GenZen",
-		"url": "https://genzen.solutions"
-	},
-	"description": "Generalized specialist. Founder of GenZen — counter-exploitation and autonomy restoration. Builder of Sogo. Practitioner of agentic partnership design.",
-	"knowsAbout": [
-		"Counter-exploitation",
-		"Autonomy restoration",
-		"Legacy protection",
-		"Agentic partnership design",
-		"Pattern recognition",
-		"Systems thinking",
-		"Behavioral profiling"
-	],
-	"sameAs": [
-		"https://www.linkedin.com/in/-adamking/",
-		"https://www.instagram.com/adam_m_king/"
-	]
-};
+const graph = homePageGraph();
 ---
 
-<Layout title="Adam King — Generalized Specialist" jsonLd={jsonLd}>
+<Layout title="Adam King — Generalized Specialist" graph={graph}>
 	<Navigation />
 	<main class="w-full relative z-10">
 		<Hero />
